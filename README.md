@@ -4,6 +4,8 @@ Practice written multiplication and division in an arithmetic tower. Choose when
 review mistakes, and track your times. Turmrechner is an installable web app in German and English.
 It stores games locally and works offline after its first complete load.
 
+The visual design is heavily inspired by Trade Republic.
+
 [Open Turmrechner](https://turmrechner.com/)
 
 ## Get started
