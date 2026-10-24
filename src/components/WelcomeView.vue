@@ -6,6 +6,7 @@ const features = [
   { icon: 'privacy', title: 'privateShort', hint: 'privateShortHint' },
   { icon: 'noAds', title: 'noAdsShort', hint: 'noAdsShortHint' },
   { icon: 'sliders', title: 'cleanShort', hint: 'cleanShortHint' },
+  { icon: 'code', title: 'openSourceShort', hint: 'openSourceShortHint' },
 ] as const
 </script>
 <template>

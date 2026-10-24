@@ -4,7 +4,8 @@
 
 ## App behavior
 
-The first launch introduces offline use and local data storage. On iPhone and iPad, the installation guide
+The first launch introduces offline use and local data storage and ends with an Open Source card mentioning GitHub.
+On iPhone and iPad, the installation guide
 comes immediately after the introduction, unless the app is already installed. Other devices skip this page.
 The next pages ask for light/dark/system mode
 and both theme variants, followed by timer, calculation preview, carry handling, haptics, and difficulty.
