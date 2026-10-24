@@ -36,7 +36,7 @@ watch(
 onScopeDispose(() => clearTimeout(undoTimer))
 </script>
 <template>
-  <main class="page run-history">
+  <main class="page run-history" :class="{ 'has-undo': removed }">
     <template v-if="selected"
       ><button class="quiet back-link" @click="selectedId = null">
         <AppIcon name="back" :size="18" />{{ t('back') }}
@@ -81,6 +81,9 @@ onScopeDispose(() => clearTimeout(undoTimer))
 .run-history::-webkit-scrollbar {
   display: none;
 }
+.run-history.has-undo {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 84px);
+}
 .run-list {
   display: grid;
   gap: 10px;
@@ -122,18 +125,24 @@ onScopeDispose(() => clearTimeout(undoTimer))
   color: var(--bad);
 }
 .undo {
-  position: sticky;
-  bottom: 0;
-  padding: 16px;
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 12px);
+  width: min(492px, calc(100% - 28px));
+  transform: translateX(-50%);
+  padding: 8px 16px;
   border-radius: 14px;
   background: var(--accent);
   color: var(--on-accent);
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   font-size: 13px;
 }
 .undo button {
+  min-height: 44px;
   font-weight: 700;
 }
 </style>
