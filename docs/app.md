@@ -20,6 +20,8 @@ Color samples reflect the selected assistance options and show an unfinished dig
 A leading result digit such as the 1 in 4 × 3 = 12 always requires user input.
 Switching modes during a game preserves the result already entered and resolves a pending carry if needed.
 The settings icon opens every preference. Starting a new game keeps preferences.
+Privacy and legal notice links appear at the bottom of settings. Provider details in the legal notice
+are revealed with a plain text control and use the contact information from the Arbeitszeiterfassung project.
 “Reset everything” clears only this app's saved game/preferences/history and restarts onboarding after a native confirmation prompt.
 Settings scroll without a visible scrollbar. The installation guide is part of onboarding only.
 The app frame and keypad stay fixed while solving; long rows scroll inside the tower.

@@ -18,12 +18,13 @@ import AppIcon from './components/AppIcon.vue'
 import OnboardingFlow from './components/OnboardingFlow.vue'
 import GameView from './components/GameView.vue'
 import SettingsView from './components/SettingsView.vue'
+import LegalView from './components/LegalView.vue'
 import ResumeDialog from './components/ResumeDialog.vue'
 
 const preferencesKey = 'turmrechner.preferences.v1'
 const preferences = ref(parsePreferences(readStorage(preferencesKey)))
 const preferenceStorageIssue = ref(false)
-const page = ref<'game' | 'settings' | 'history'>('game')
+const page = ref<'game' | 'settings' | 'history' | 'privacy' | 'imprint'>('game')
 const {
   acceptPendingExtra,
   game,
@@ -204,7 +205,7 @@ onUnmounted(() => {
   <div class="app" :class="{ 'welcome-app': !preferences.onboarded }" :inert="showResume || undefined">
     <header v-if="preferences.onboarded">
       <div>
-        <div class="brand">{{ t(page === 'settings' ? 'settings' : page === 'history' ? 'history' : 'title') }}</div>
+        <div class="brand">{{ t(page === 'game' ? 'title' : page) }}</div>
         <div class="sub">{{ t(page === 'game' ? 'subtitle' : 'deviceSubtitle') }}</div>
       </div>
       <div class="header-actions">
@@ -214,7 +215,7 @@ onUnmounted(() => {
         <button
           class="icon-button"
           :aria-label="t(page === 'game' ? 'settings' : 'close')"
-          @click="page = page === 'game' ? 'settings' : 'game'"
+          @click="page = page === 'game' || page === 'privacy' || page === 'imprint' ? 'settings' : 'game'"
         >
           <AppIcon :name="page === 'game' ? 'settings' : 'close'" />
         </button>
@@ -236,6 +237,7 @@ onUnmounted(() => {
       @reset="freshGame"
       @clear="clearEverything"
       @update="updateServiceWorker(true)"
+      @legal="page = $event"
     />
     <RunHistoryView
       v-else-if="page === 'history'"
@@ -243,6 +245,12 @@ onUnmounted(() => {
       :initial-id="historyId"
       @delete="history.remove"
       @restore="history.add"
+    />
+    <LegalView
+      v-else-if="page === 'privacy' || page === 'imprint'"
+      :key="page"
+      :kind="page"
+      @imprint="page = 'imprint'"
     />
     <GameView
       v-if="preferences.onboarded"

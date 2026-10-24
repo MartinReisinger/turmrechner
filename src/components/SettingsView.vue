@@ -14,7 +14,13 @@ defineProps<{
   minimumDifficulty?: Difficulty | null
 }>()
 const languages: LanguageMode[] = ['de', 'en', 'system']
-const emit = defineEmits<{ change: [value: Partial<Preferences>]; reset: []; clear: []; update: [] }>()
+const emit = defineEmits<{
+  change: [value: Partial<Preferences>]
+  reset: []
+  clear: []
+  update: []
+  legal: [page: 'privacy' | 'imprint']
+}>()
 </script>
 <template>
   <main class="page settings">
@@ -91,6 +97,10 @@ const emit = defineEmits<{ change: [value: Partial<Preferences>]; reset: []; cle
       <button class="quiet reset-all" @click="emit('clear')">{{ t('clearAll') }}</button>
       <p v-if="storageIssue" role="status">{{ t('storageIssue') }}</p>
     </section>
+    <footer class="legal-links">
+      <button @click="emit('legal', 'privacy')">{{ t('privacy') }}</button>
+      <button @click="emit('legal', 'imprint')">{{ t('imprint') }}</button>
+    </footer>
   </main>
 </template>
 <style scoped>
@@ -131,5 +141,17 @@ h2 {
 }
 .settings-links {
   gap: 8px;
+}
+.legal-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+.legal-links button {
+  min-height: 44px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
 }
 </style>
