@@ -48,7 +48,8 @@ Rows show seed/time above date/error count. Regional dates use 24-hour time; Aus
 The settings summary lists each option once with all its distinct values. Detailed change timestamps remain stored.
 
 Review colors identify correct input (green), a genuine local mistake (red), and a correctly computed consequence
-of an earlier mistake (yellow). Failed and undone attempts remain visible. Native sharing generates a local PNG
+of an earlier mistake (yellow). Positions with failed inputs are marked red directly in the result row.
+Earlier attempts remain stored but are not displayed as extra digits. Native sharing generates a local PNG
 of the entire reviewed tower and includes https://turmrechner.martindev.at/ in the image and share payload.
 There is no upload endpoint or additional download/copy interface. Sharing images requires native file sharing
 support; the user selects the destination in the device share sheet.

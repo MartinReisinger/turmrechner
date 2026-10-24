@@ -95,3 +95,10 @@ export function reviewCells(review: Review): ReviewCell[] {
     }
   })
 }
+export function reviewDisplayCells(review: Review): ReviewCell[] {
+  const mistakes = new Set(review.entries.filter((entry) => entry.grade === 'wrong').map((entry) => entry.place))
+  return reviewCells(review).map((cell) => ({
+    ...cell,
+    grade: mistakes.has(cell.place) ? 'wrong' : cell.grade,
+  }))
+}

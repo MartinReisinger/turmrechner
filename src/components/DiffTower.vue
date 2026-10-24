@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { steps } from '../domain/game'
-import { reviewCells, type Review } from '../domain/review'
+import { reviewDisplayCells, type Review } from '../domain/review'
 import { t } from '../i18n'
 const props = defineProps<{ reviews: Review[] }>()
-const rows = computed(() => props.reviews.map((review) => ({ review, cells: reviewCells(review) })))
+const rows = computed(() => props.reviews.map((review) => ({ review, cells: reviewDisplayCells(review) })))
 </script>
 <template>
   <div class="diff-tower">
@@ -16,7 +16,6 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
       class="diff-step"
       :class="{
         'has-helpers': cells.some((cell) => cell.helper),
-        'has-attempts': cells.some((cell) => cell.attempts.length || cell.helperAttempts.length),
       }"
     >
       <div class="diff-line">
@@ -28,9 +27,6 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
               :class="cell.helper.grade"
               :title="`${t('corrected')}: ${cell.helper.expected}`"
               >{{ cell.helper.value }}</span
-            >
-            <span v-if="cell.attempts.length || cell.helperAttempts.length" class="diff-attempt wrong">
-              {{ [...cell.attempts, ...cell.helperAttempts].join('·') }}</span
             >
             <span :class="cell.grade" :aria-label="`${cell.value}, ${t(cell.grade)}`">{{ cell.value }}</span>
           </div>
@@ -84,9 +80,6 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
 .has-helpers .diff-digits {
   padding-top: 13px;
 }
-.has-attempts {
-  padding-bottom: 12px;
-}
 .diff-cell {
   position: relative;
   min-width: 0.72em;
@@ -100,14 +93,6 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
   left: -5px;
   font-size: 11px;
   font-weight: 600;
-}
-.diff-attempt {
-  position: absolute;
-  bottom: -12px;
-  left: 0;
-  font-size: 10px;
-  white-space: nowrap;
-  text-decoration: line-through;
 }
 .right {
   color: var(--good);

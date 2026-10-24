@@ -1,5 +1,5 @@
 import { formatDuration, type RunView } from '../domain/run-record'
-import { reviewCells } from '../domain/review'
+import { reviewDisplayCells } from '../domain/review'
 import { steps } from '../domain/game'
 import { t } from '../i18n'
 import { formatLocalDate } from './date-format'
@@ -47,7 +47,7 @@ export async function renderRunImage(run: RunView): Promise<File> {
   ctx.fillText('× 2', 1000, y)
   for (const row of run.reviews) {
     y += 100
-    const cells = reviewCells(row)
+    const cells = reviewDisplayCells(row)
     for (const cell of cells) {
       const x = right - cell.place * col
       ctx.fillStyle = colors[cell.grade]
@@ -57,12 +57,6 @@ export async function renderRunImage(run: RunView): Promise<File> {
         ctx.fillStyle = colors[cell.helper.grade]
         font(22)
         ctx.fillText(String(cell.helper.value), x - 18, y - 44)
-      }
-      const attempts = [...cell.attempts, ...cell.helperAttempts]
-      if (attempts.length) {
-        ctx.fillStyle = colors.wrong
-        font(20)
-        ctx.fillText(attempts.join('·'), x, y + 23)
       }
     }
     if (row.step < 15) {
