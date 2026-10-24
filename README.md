@@ -3,6 +3,17 @@
 Standalone German arithmetic practice app. All HTML, CSS, and JavaScript live in `index.html`.
 No dependencies, build step, database, or application secrets are required.
 
+`favicon.svg` and `favicon.ico` provide the browser icon. `apple-touch-icon.png` is the opaque
+180 × 180 iOS Home Screen icon. All use Lucide’s `align-vertical-justify-end` in the app colors.
+See [third-party notices](THIRD_PARTY_NOTICES.md) for attribution and licensing.
+To regenerate the PNG and ICO after editing the SVG, use librsvg and ImageMagick:
+
+```sh
+rsvg-convert -w 180 -h 180 favicon.svg -o apple-touch-icon.png
+rsvg-convert -w 512 -h 512 favicon.svg -o /tmp/turmrechner-icon.png
+magick /tmp/turmrechner-icon.png -define icon:auto-resize=48,32,16 favicon.ico
+```
+
 ## Local preview
 
 Run `python3 -m http.server 3000 --bind 127.0.0.1`, then open http://localhost:3000.
