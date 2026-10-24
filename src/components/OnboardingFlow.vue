@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
-import { onboardingSteps, type Preferences } from '../domain/preferences'
+import { onboardingOptions, onboardingSteps, type Preferences } from '../domain/preferences'
 import { t } from '../i18n'
-import { isIOS, isStandalone } from '../platform/device'
 import WelcomeView from './WelcomeView.vue'
-import InstallGuide from './InstallGuide.vue'
 import FeatureComparison from './FeatureComparison.vue'
 import ThemeChoices from './ThemeChoices.vue'
 import ModeChoices from './ModeChoices.vue'
@@ -13,11 +11,12 @@ import TapButton from './TapButton.vue'
 const props = defineProps<{ preferences: Preferences }>()
 const emit = defineEmits<{ change: [value: Partial<Preferences>]; finish: [] }>()
 const heading = ref<HTMLElement>()
-const canInstall = isIOS() && !isStandalone()
-const step = computed(() =>
-  props.preferences.onboardingStep === 1 && !canInstall ? 2 : props.preferences.onboardingStep,
+const step = computed(() => props.preferences.onboardingStep)
+const stages = onboardingSteps
+const canContinue = computed(() =>
+  (step.value === 6 ? ['theme'] : step.value === 7 ? ['light', 'dark'] : [])
+    .every((key) => props.preferences.onboardingChoices.some((choice) => choice === key)),
 )
-const stages = onboardingSteps.filter((stage) => stage !== 1 || canInstall)
 const titles = [
   'welcome',
   'install',
@@ -34,8 +33,18 @@ function move(direction: number) {
   emit('change', { onboardingStep: stages[index] })
 }
 function select(feature: 'preview' | 'carries' | 'timer', value: boolean) {
-  emit('change', { [feature]: value })
-  move(1)
+  choose({ [feature]: value }, true)
+}
+function choose(value: Partial<Preferences>, advance = false) {
+  const choices = onboardingOptions.filter((key) => value[key] !== undefined)
+  emit('change', {
+    ...value,
+    onboardingChoices: [...new Set([...props.preferences.onboardingChoices, ...choices])],
+  })
+  if (advance) {
+    if (step.value === 8) emit('finish')
+    else move(1)
+  }
 }
 watch(step, async () => {
   await nextTick()
@@ -54,11 +63,10 @@ watch(step, async () => {
         </div>
         <div class="page-body">
           <WelcomeView v-if="step === 0" />
-          <template v-else-if="step === 1"><InstallGuide /></template>
           <ModeChoices
             v-else-if="step === 8"
-            :value="preferences.difficulty"
-            @select="emit('change', { difficulty: $event })"
+            :value="preferences.onboardingChoices.includes('difficulty') ? preferences.difficulty : null"
+            @select="choose({ difficulty: $event }, true)"
           />
           <FeatureComparison
             v-else-if="step === 2"
@@ -78,8 +86,8 @@ watch(step, async () => {
                 v-for="enabled in [true, false]"
                 :key="String(enabled)"
                 class="choice"
-                :aria-pressed="preferences.haptics === enabled"
-                @click="emit('change', { haptics: enabled })"
+                :aria-pressed="preferences.onboardingChoices.includes('haptics') && preferences.haptics === enabled"
+                @click="choose({ haptics: enabled }, true)"
               >
                 <span class="haptic-wave" :class="{ moving: enabled }" aria-hidden="true">· · ·</span>
                 <span class="choice-label">{{ t(enabled ? 'on' : 'off') }}</span>
@@ -90,15 +98,20 @@ watch(step, async () => {
             </TapButton>
           </template>
           <TimerChoices v-else-if="step === 5" :value="preferences.timer" @select="select('timer', $event)" />
-          <ThemeChoices v-else :preferences="preferences" :variants="step === 7" @change="emit('change', $event)" />
+          <ThemeChoices
+            v-else
+            :preferences="preferences"
+            :choices="preferences.onboardingChoices"
+            :variants="step === 7"
+            @change="choose($event)"
+          />
         </div>
       </section>
     </Transition>
     <div class="page-actions">
-      <button v-if="step !== 2 && step !== 3 && step !== 5" class="primary" @click="step === 8 ? emit('finish') : move(1)">
-        {{ t(step === 8 ? 'finish' : 'next') }}
+      <button v-if="step === 0 || step === 6 || step === 7" class="primary" :disabled="!canContinue" @click="move(1)">
+        {{ t('next') }}
       </button>
-      <button v-if="step === 1" class="quiet" @click="move(1)">{{ t('noThanks') }}</button>
       <button v-if="step > 0" class="quiet" @click="move(-1)">{{ t('back') }}</button>
     </div>
   </main>

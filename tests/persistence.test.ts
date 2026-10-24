@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { enterDigit, expected, startGame, type Game } from '../src/domain/game'
 import { restoreSession } from '../src/domain/session'
-import { defaultPreferences, parsePreferences } from '../src/domain/preferences'
+import { defaultPreferences, onboardingOptions, parsePreferences } from '../src/domain/preferences'
 import { readStorage, writeStorage, type StoragePort } from '../src/platform/storage'
 import { detectLanguage } from '../src/i18n/language'
 import { taskColumns } from '../src/domain/tower'
@@ -51,7 +51,8 @@ describe('preferences', () => {
   it('requires explicit choices for the main options', () => {
     expect(defaultPreferences()).toMatchObject({ preview: null, carries: null, timer: null, theme: 'system' })
     expect(parsePreferences({ ...defaultPreferences(), onboarded: true }).onboarded).toBe(false)
-    expect(parsePreferences({ ...defaultPreferences(), onboardingStep: 6 }).onboardingStep).toBe(5)
+    expect(defaultPreferences().onboardingChoices).toEqual([])
+    expect(parsePreferences({ ...defaultPreferences(), onboardingStep: 8 }).onboardingStep).toBe(6)
   })
   it('restores false choices and both theme variants regardless of mode', () => {
     const saved = {
@@ -63,6 +64,7 @@ describe('preferences', () => {
       light: 'warm',
       dark: 'oled',
       onboarded: true,
+      onboardingChoices: [...onboardingOptions],
       onboardingStep: 6,
     }
     expect(parsePreferences(saved)).toEqual(saved)

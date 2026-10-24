@@ -4,6 +4,7 @@ import { useRegisterSW } from 'virtual:pwa-register/vue'
 import {
   defaultPreferences,
   difficultyRank,
+  missingOnboardingStep,
   parsePreferences,
   type Difficulty,
   type Preferences,
@@ -90,9 +91,8 @@ function openHistory(id: string | null = null) {
   page.value = 'history'
 }
 function finishOnboarding() {
-  if (preferences.value.timer === null) return change({ onboardingStep: 5 })
-  if (preferences.value.preview === null) return change({ onboardingStep: 2 })
-  if (preferences.value.carries === null) return change({ onboardingStep: 3 })
+  const missing = missingOnboardingStep(preferences.value)
+  if (missing !== undefined) return change({ onboardingStep: missing })
   change({ onboarded: true })
 }
 function freshGame() {

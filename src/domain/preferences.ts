@@ -5,7 +5,9 @@ export const difficultyRank = { easy: 0, normal: 1, hard: 2 }
 export type ThemeMode = 'system' | 'light' | 'dark'
 export type LightTheme = 'white' | 'warm'
 export type DarkTheme = 'oled' | 'monokai'
-export const onboardingSteps: readonly number[] = [0, 5, 1, 2, 3, 4, 6, 7, 8]
+export const onboardingSteps: readonly number[] = [0, 6, 7, 5, 2, 3, 4, 8]
+export const onboardingOptions = ['theme', 'light', 'dark', 'timer', 'preview', 'carries', 'haptics', 'difficulty'] as const
+export type OnboardingOption = (typeof onboardingOptions)[number]
 export interface Preferences {
   version: 3
   difficulty: Difficulty
@@ -18,6 +20,7 @@ export interface Preferences {
   light: LightTheme
   dark: DarkTheme
   onboardingStep: number
+  onboardingChoices: OnboardingOption[]
   onboarded: boolean
 }
 export function defaultPreferences(): Preferences {
@@ -33,8 +36,21 @@ export function defaultPreferences(): Preferences {
     light: 'white',
     dark: 'oled',
     onboardingStep: 0,
+    onboardingChoices: [],
     onboarded: false,
   }
+}
+export function missingOnboardingStep(preferences: Preferences): number | undefined {
+  const requirements: [number, OnboardingOption[]][] = [
+    [6, ['theme']],
+    [7, ['light', 'dark']],
+    [5, ['timer']],
+    [2, ['preview']],
+    [3, ['carries']],
+    [4, ['haptics']],
+    [8, ['difficulty']],
+  ]
+  return requirements.find(([, keys]) => keys.some((key) => !preferences.onboardingChoices.includes(key)))?.[0]
 }
 export function parsePreferences(value: unknown): Preferences {
   const defaults = defaultPreferences()
@@ -52,14 +68,11 @@ export function parsePreferences(value: unknown): Preferences {
       : value.version === 2
         ? [0, 1, 8, 2, 3, 4, 5, 6, 7][requestedStep]
         : requestedStep
-  const required = [
-    migrated,
-    ...(timer === null ? [5] : []),
-    ...(preview === null ? [2] : []),
-    ...(carries === null ? [3] : []),
-  ]
-  const onboardingStep = onboardingSteps.find((step) => required.includes(step)) ?? 0
-  return {
+  const savedChoices = value.onboardingChoices
+  const onboardingChoices = onboardingOptions.filter((key) =>
+    Array.isArray(savedChoices) ? savedChoices.includes(key) : value.onboarded === true,
+  )
+  const preferences: Preferences = {
     version: 3,
     difficulty: value.difficulty === 'normal' || value.difficulty === 'hard' ? value.difficulty : 'easy',
     timer,
@@ -70,7 +83,16 @@ export function parsePreferences(value: unknown): Preferences {
     theme: value.theme === 'light' || value.theme === 'dark' ? value.theme : 'system',
     light: value.light === 'warm' ? 'warm' : 'white',
     dark: value.dark === 'monokai' ? 'monokai' : 'oled',
-    onboardingStep,
-    onboarded: value.onboarded === true && preview !== null && carries !== null && timer !== null,
+    onboardingStep: migrated === 1 ? 6 : migrated,
+    onboardingChoices,
+    onboarded: false,
   }
+  for (const key of ['timer', 'preview', 'carries'] as const) {
+    if (preferences[key] === null) preferences.onboardingChoices = preferences.onboardingChoices.filter((item) => item !== key)
+  }
+  const missing = missingOnboardingStep(preferences)
+  if (missing !== undefined && onboardingSteps.indexOf(missing) < onboardingSteps.indexOf(preferences.onboardingStep))
+    preferences.onboardingStep = missing
+  preferences.onboarded = value.onboarded === true && missing === undefined
+  return preferences
 }

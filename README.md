@@ -17,7 +17,7 @@ Use the on-screen keypad or your keyboard to solve the tower.
 - Native sharing creates an image of your results with a link to the app.
 
 The app works offline after its first complete load. On iPhone, use Safari's **Add to Home Screen**
-to install it. An installation guide is included in onboarding.
+to install it.
 
 No account is needed. Game data stays in your browser, with no sync between devices.
 Clearing website data also deletes saved runs. See [app behavior and privacy](docs/app.md) for details.

@@ -1,6 +1,9 @@
 import { parsePreferences, type Preferences } from './preferences'
 import { isRecord } from '../platform/storage'
-export type RunSettings = Omit<Preferences, 'version' | 'onboardingStep' | 'onboarded' | 'preview' | 'carries' | 'timer'> & {
+export type RunSettings = Omit<
+  Preferences,
+  'version' | 'onboardingStep' | 'onboardingChoices' | 'onboarded' | 'preview' | 'carries' | 'timer'
+> & {
   preview: boolean
   carries: boolean
   timer: boolean

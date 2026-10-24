@@ -2,7 +2,7 @@
 import { difficultyRank, type Difficulty } from '../domain/preferences'
 import { t } from '../i18n'
 import AppIcon from './AppIcon.vue'
-defineProps<{ value: Difficulty; minimum?: Difficulty | null }>()
+defineProps<{ value: Difficulty | null; minimum?: Difficulty | null }>()
 const emit = defineEmits<{ select: [value: Difficulty] }>()
 const modes = [
   { value: 'easy', icon: 'zap', hint: 'easyHint' },

@@ -4,13 +4,12 @@
 
 ## App behavior
 
-The first launch introduces offline use and local data storage, then asks whether to show the timer.
-On iOS, an animated guide follows and explains
-how to add the app to the Home Screen. The guide is skipped when launched in standalone mode or on other devices.
-Users then choose calculation previews, manual or mental carry handling, haptics,
-light/dark/system mode, both color variants, and finally Easy/Normal/Hard. Easy is the default difficulty.
-Preview, carry, and timer choices have no defaults and require an explicit selection to advance.
-System mode, white, black, and enabled haptics are preselected.
+The first launch introduces offline use and local data storage. The next pages ask for light/dark/system mode
+and both theme variants, followed by timer, calculation preview, carry handling, haptics, and difficulty.
+No onboarding option is preselected. Only the introduction and the two appearance pages have a Next button.
+The appearance pages require an explicit choice before Next becomes available. All later selections advance
+automatically, and selecting the difficulty finishes onboarding. Back remains available on every choice page.
+Existing completed onboarding and saved preferences are preserved.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.
 Dark variants are Black (left, default) and Monokai (right). Dark Monokai uses a `#272822` background
 with pink, cyan, purple, and green accents. Saved Charcoal choices migrate to Black.
@@ -24,7 +23,7 @@ The settings icon opens every preference. Starting a new game keeps preferences.
 Privacy and legal notice links appear at the bottom of settings. Provider details in the legal notice
 are revealed with a plain text control and use the contact information from the Arbeitszeiterfassung project.
 “Reset everything” clears only this app's saved game/preferences/history and restarts onboarding after a native confirmation prompt.
-Settings scroll without a visible scrollbar. The installation guide is part of onboarding only.
+Settings scroll without a visible scrollbar.
 The app frame and keypad stay fixed while solving; long rows scroll inside the tower.
 Onboarding, settings, and history scroll within the app only when their content exceeds the available height.
 Language choices are Deutsch, English, and System (default). System follows the first supported device language,

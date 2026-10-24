@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { Preferences, ThemeMode } from '../domain/preferences'
+import type { OnboardingOption, Preferences, ThemeMode } from '../domain/preferences'
 import { t } from '../i18n'
 import AppIcon from './AppIcon.vue'
 import ArithmeticDemo from './ArithmeticDemo.vue'
 import { demoFrames } from '../domain/demo'
-defineProps<{ preferences: Preferences; variants?: boolean }>()
+const props = defineProps<{ preferences: Preferences; variants?: boolean; choices?: OnboardingOption[] }>()
+const chosen = (key: OnboardingOption) => props.choices === undefined || props.choices.includes(key)
 const emit = defineEmits<{ change: [value: Partial<Preferences>] }>()
 const modes: ThemeMode[] = ['light', 'dark', 'system']
 const samples = demoFrames()
@@ -17,7 +18,7 @@ const sample = samples[samples.length - 2]
       v-for="mode in modes"
       :key="mode"
       class="choice"
-      :aria-pressed="preferences.theme === mode"
+      :aria-pressed="chosen('theme') && preferences.theme === mode"
       @click="emit('change', { theme: mode })"
     >
       <AppIcon :name="mode === 'light' ? 'sun' : mode === 'dark' ? 'moon' : 'system'" />
@@ -33,7 +34,7 @@ const sample = samples[samples.length - 2]
           :key="variant"
           class="choice swatch"
           :data-theme="variant"
-          :aria-pressed="preferences.light === variant"
+          :aria-pressed="chosen('light') && preferences.light === variant"
           @click="emit('change', { light: variant })"
         >
           <ArithmeticDemo
@@ -54,7 +55,7 @@ const sample = samples[samples.length - 2]
           :key="variant"
           class="choice swatch"
           :data-theme="variant"
-          :aria-pressed="preferences.dark === variant"
+          :aria-pressed="chosen('dark') && preferences.dark === variant"
           @click="emit('change', { dark: variant })"
         >
           <ArithmeticDemo

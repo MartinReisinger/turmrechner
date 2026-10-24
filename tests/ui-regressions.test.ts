@@ -7,7 +7,7 @@ import GameView from '../src/components/GameView.vue'
 import ArithmeticDemo from '../src/components/ArithmeticDemo.vue'
 import ThemeChoices from '../src/components/ThemeChoices.vue'
 import { demoFrames } from '../src/domain/demo'
-import { defaultPreferences } from '../src/domain/preferences'
+import { defaultPreferences, onboardingOptions } from '../src/domain/preferences'
 import { enterDigit, startGame } from '../src/domain/game'
 import { setLanguage } from '../src/i18n'
 
@@ -69,6 +69,7 @@ it('switches all UI text immediately and clears only app data when restarting on
       carries: false,
       timer: false,
       onboarded: true,
+      onboardingChoices: [...onboardingOptions],
     }),
   )
   localStorage.setItem('unrelated', 'keep')
