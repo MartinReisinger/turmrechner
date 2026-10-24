@@ -3,6 +3,8 @@ import type { LanguageMode } from '../i18n/language'
 import type { Preferences } from '../domain/preferences'
 import { t } from '../i18n'
 import ThemeChoices from './ThemeChoices.vue'
+import ModeChoices from './ModeChoices.vue'
+import TimerChoices from './TimerChoices.vue'
 import FeatureComparison from './FeatureComparison.vue'
 import TapButton from './TapButton.vue'
 defineProps<{ preferences: Preferences; updateReady: boolean; storageIssue: boolean }>()
@@ -11,6 +13,14 @@ const emit = defineEmits<{ change: [value: Partial<Preferences>]; reset: []; cle
 </script>
 <template>
   <main class="page settings">
+    <section>
+      <h2>{{ t('mode') }}</h2>
+      <ModeChoices :value="preferences.difficulty" @select="emit('change', { difficulty: $event })" />
+    </section>
+    <section>
+      <h2>{{ t('timer') }}</h2>
+      <TimerChoices :value="preferences.timer" @select="emit('change', { timer: $event })" />
+    </section>
     <section>
       <h2>{{ t('preview') }}</h2>
       <FeatureComparison

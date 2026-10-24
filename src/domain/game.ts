@@ -65,7 +65,7 @@ export function expected(task: Task) {
 }
 
 /** Returns the original state for a rejected digit. Every column requires an extra, including zero. */
-export function enterDigit(game: Game, digit: number): Game {
+export function enterDigit(game: Game, digit: number, validate = true): Game {
   if (!Number.isInteger(digit) || digit < 0 || digit > 9) return game
   if (game.kind === 'seed') {
     if (game.text.length >= 6) return game
@@ -73,7 +73,7 @@ export function enterDigit(game: Game, digit: number): Game {
   }
   if (game.kind !== 'playing') return game
   const wanted = expected(game.task)[game.task.phase === 'digit' ? 'digit' : 'extra']
-  if (digit !== wanted) return game
+  if (validate && digit !== wanted) return game
   const next = structuredClone(game)
   const task = next.task
   if (task.phase === 'digit') {

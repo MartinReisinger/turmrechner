@@ -7,6 +7,8 @@ import WelcomeView from './WelcomeView.vue'
 import InstallGuide from './InstallGuide.vue'
 import FeatureComparison from './FeatureComparison.vue'
 import ThemeChoices from './ThemeChoices.vue'
+import ModeChoices from './ModeChoices.vue'
+import TimerChoices from './TimerChoices.vue'
 import TapButton from './TapButton.vue'
 const props = defineProps<{ preferences: Preferences }>()
 const emit = defineEmits<{ change: [value: Partial<Preferences>]; finish: [] }>()
@@ -15,20 +17,22 @@ const canInstall = isIOS() && !isStandalone()
 const step = computed(() =>
   props.preferences.onboardingStep === 1 && !canInstall ? 2 : props.preferences.onboardingStep,
 )
-const stages = canInstall ? [0, 1, 2, 3, 4, 5, 6] : [0, 2, 3, 4, 5, 6]
+const stages = canInstall ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [0, 2, 3, 4, 5, 6, 7, 8]
 const titles = [
   'welcome',
   'install',
+  'modeTitle',
   'previewTitle',
   'carryTitle',
   'hapticsTitle',
+  'timerTitle',
   'themeTitle',
   'variantsTitle',
 ] as const
 function move(direction: number) {
   let target = step.value + direction
   if (target === 1 && !canInstall) target += direction
-  emit('change', { onboardingStep: Math.max(0, Math.min(6, target)) })
+  emit('change', { onboardingStep: Math.max(0, Math.min(8, target)) })
 }
 function select(feature: 'preview' | 'carries', value: boolean) {
   emit('change', { [feature]: value })
@@ -52,19 +56,24 @@ watch(step, async () => {
         <div class="page-body">
           <WelcomeView v-if="step === 0" />
           <template v-else-if="step === 1"><InstallGuide /></template>
-          <FeatureComparison
+          <ModeChoices
             v-else-if="step === 2"
+            :value="preferences.difficulty"
+            @select="emit('change', { difficulty: $event })"
+          />
+          <FeatureComparison
+            v-else-if="step === 3"
             feature="preview"
             :selected="preferences.preview"
             @select="select('preview', $event)"
           />
           <FeatureComparison
-            v-else-if="step === 3"
+            v-else-if="step === 4"
             feature="carries"
             :selected="preferences.carries"
             @select="select('carries', $event)"
           />
-          <template v-else-if="step === 4">
+          <template v-else-if="step === 5">
             <div class="choices">
               <button
                 v-for="enabled in [true, false]"
@@ -81,13 +90,14 @@ watch(step, async () => {
               {{ t('testHaptics') }}
             </TapButton>
           </template>
-          <ThemeChoices v-else :preferences="preferences" :variants="step === 6" @change="emit('change', $event)" />
+          <TimerChoices v-else-if="step === 6" :value="preferences.timer" @select="emit('change', { timer: $event })" />
+          <ThemeChoices v-else :preferences="preferences" :variants="step === 8" @change="emit('change', $event)" />
         </div>
       </section>
     </Transition>
     <div class="page-actions">
-      <button v-if="step !== 2 && step !== 3" class="primary" @click="step === 6 ? emit('finish') : move(1)">
-        {{ t(step === 6 ? 'finish' : 'next') }}
+      <button v-if="step !== 3 && step !== 4" class="primary" @click="step === 8 ? emit('finish') : move(1)">
+        {{ t(step === 8 ? 'finish' : 'next') }}
       </button>
       <button v-if="step === 1" class="quiet" @click="move(1)">{{ t('noThanks') }}</button>
       <button v-if="step > 0" class="quiet" @click="move(-1)">{{ t('back') }}</button>

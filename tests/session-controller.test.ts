@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { useGameSession, sessionKey } from '../src/composables/useGameSession'
+import { useGameSession } from '../src/composables/useGameSession'
 import { expected } from '../src/domain/game'
 import { defaultPreferences } from '../src/domain/preferences'
 import { demoFrames } from '../src/domain/demo'
@@ -41,17 +41,18 @@ describe('session lifecycle', () => {
     expect(useGameSession().game.value).toEqual({ kind: 'seed', text: '' })
     expect(saved.get('turmrechner.preferences.v1')).toBe(preferences)
   })
-  it('does not persist rejected inputs and preserves seed editing', () => {
+  it('logs rejected attempts without changing the arithmetic state', () => {
     const session = useGameSession()
     session.key('5', false)
     session.key('2', false)
     session.key('back', false)
     expect(useGameSession().game.value).toEqual({ kind: 'seed', text: '5' })
     session.start()
-    const before = saved.get(sessionKey)
+    const before = structuredClone(session.game.value)
     session.key('3', false)
     expect(session.feedback.value).toBe('wrongDigit')
-    expect(saved.get(sessionKey)).toBe(before)
+    expect(session.game.value).toEqual(before)
+    expect(session.errors.value).toBe(1)
   })
   it('continues in memory when storage becomes unavailable', () => {
     vi.stubGlobal('localStorage', {
@@ -112,9 +113,10 @@ it('requires the leading result digit in mental mode for 4 × 3 = 12', () => {
   expect(game.kind === 'playing' && game.step).toBe(1)
   expect(game.kind === 'playing' && game.task.phase).toBe('leading')
   expect(game.kind === 'playing' && game.task.result).toEqual(['2'])
-  const before = saved.get(sessionKey)
+  const before = structuredClone(session.game.value)
   session.key('0', false, false)
-  expect(saved.get(sessionKey)).toBe(before)
+  expect(session.game.value).toEqual(before)
+  expect(session.errors.value).toBe(1)
   session.key('1', false, false)
   expect(session.game.value.kind === 'playing' && session.game.value.current).toBe('12')
   expect(session.game.value.kind === 'playing' && session.game.value.step).toBe(2)

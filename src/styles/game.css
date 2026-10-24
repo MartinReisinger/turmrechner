@@ -130,3 +130,19 @@
     transform: scaleX(1);
   }
 }
+.done-time {
+  font-size: 25px;
+  font-weight: 780;
+  margin: 10px 0 6px;
+  font-variant-numeric: tabular-nums;
+}
+.done-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 12px;
+}
+.done-mark.failed {
+  color: var(--bad);
+}

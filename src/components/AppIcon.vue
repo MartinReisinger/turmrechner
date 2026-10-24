@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import {
+  History,
+  Timer,
+  Trash2,
+  Trophy,
+  Undo2,
+  Zap,
+  ListChecks,
+  Flag,
   Settings,
   Share,
   Plus,
@@ -18,6 +26,14 @@ import {
 } from '@lucide/vue'
 withDefaults(defineProps<{ name: keyof typeof icons; size?: number }>(), { size: 22 })
 const icons = {
+  history: History,
+  timer: Timer,
+  trash: Trash2,
+  trophy: Trophy,
+  undo: Undo2,
+  zap: Zap,
+  rows: ListChecks,
+  flag: Flag,
   settings: Settings,
   share: Share,
   plus: Plus,

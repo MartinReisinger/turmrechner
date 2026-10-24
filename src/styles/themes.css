@@ -63,3 +63,14 @@
   --selection: var(--text);
   --cursor: var(--text);
 }
+:root {
+  --warning: #e8ba54;
+}
+[data-theme='white'],
+[data-theme='warm'] {
+  --warning: #936900;
+}
+[data-theme='charcoal'],
+[data-theme='oled'] {
+  --warning: #e8ba54;
+}

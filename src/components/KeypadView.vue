@@ -2,7 +2,7 @@
 import { t } from '../i18n'
 import TapButton from './TapButton.vue'
 import AppIcon from './AppIcon.vue'
-defineProps<{ seedMode: boolean; haptics: boolean }>()
+defineProps<{ seedMode: boolean; haptics: boolean; canUndo?: boolean; playing?: boolean; locked?: boolean }>()
 const emit = defineEmits<{ key: [key: string] }>()
 const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'back', '0', 'random']
 function label(key: string) {
@@ -18,9 +18,17 @@ function label(key: string) {
       :class="{ action: key === 'random', back: key === 'back' }"
       :label="label(key)"
       :haptics="haptics"
-      :disabled="!seedMode && (key === 'back' || key === 'random')"
+      :disabled="
+        locked || (key === 'back' ? !seedMode && !canUndo : key === 'random' ? !seedMode : !seedMode && !playing)
+      "
       @tap="emit('key', key)"
-      ><AppIcon v-if="key === 'back'" name="delete" :size="20" />
+      ><AppIcon
+        v-if="key === 'back'"
+        name="delete"
+        :size="20"
+        class="delete-direction"
+        :class="{ reversed: !seedMode }"
+      />
       <template v-else>{{ label(key) }}</template></TapButton
     >
   </div>
@@ -56,5 +64,14 @@ function label(key: string) {
   .key {
     height: 43px;
   }
+}
+</style>
+
+<style scoped>
+.delete-direction {
+  transition: transform 0.35s ease;
+}
+.delete-direction.reversed {
+  transform: scaleX(-1);
 }
 </style>
