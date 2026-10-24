@@ -23,6 +23,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        globIgnores: ['runtime/**'],
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
         navigateFallback: 'index.html',
         ignoreURLParametersMatching: [/^v$/, /^utm_/, /^fbclid$/],

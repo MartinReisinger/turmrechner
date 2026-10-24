@@ -12,6 +12,7 @@ RUN pnpm verify
 FROM busybox:1.37.0
 WORKDIR /www
 COPY --from=build --chown=65534:65534 /app/dist/ /www/
+COPY --chmod=0555 deploy/vps/entrypoint.sh /entrypoint.sh
 USER 65534:65534
 EXPOSE 8080
-CMD ["httpd", "-f", "-p", "8080", "-h", "/www"]
+ENTRYPOINT ["/entrypoint.sh"]

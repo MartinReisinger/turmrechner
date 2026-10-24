@@ -51,7 +51,9 @@ jobs:
           deploy_dir=/home/deploy/turmrechner
           test -d "$deploy_dir"
           install -m 0644 deploy/vps/compose.yml "$deploy_dir/compose.yml"
-          printf 'DEPLOY_COMMIT=%s\n' "$DEPLOY_COMMIT" > "$deploy_dir/.env.next"
+          test -s "$deploy_dir/.env"
+          sed '/^DEPLOY_COMMIT=/d' "$deploy_dir/.env" > "$deploy_dir/.env.next"
+          printf '\nDEPLOY_COMMIT=%s\n' "$DEPLOY_COMMIT" >> "$deploy_dir/.env.next"
           chmod 600 "$deploy_dir/.env.next"
           chown --reference="$deploy_dir" "$deploy_dir/.env.next" "$deploy_dir/compose.yml"
           cd "$deploy_dir"

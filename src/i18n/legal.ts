@@ -14,6 +14,7 @@ export const legalMessages = {
     contactTitle: 'Kontakt und Rechte',
     contactText:
       'Die Kontaktdaten findest du im Impressum. Für personenbezogene Daten gelten die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch nach der DSGVO. Du kannst dich bei der österreichischen Datenschutzbehörde beschweren.',
+    authorityLink: 'Österreichische Datenschutzbehörde (dsb.gv.at)',
     projectText: 'Ein privates Projekt zum Üben von schriftlicher Multiplikation und Division.',
     providerTitle: 'Medieninhaber und Diensteanbieter',
     location: 'Linz, Österreich',
@@ -39,6 +40,7 @@ export const legalMessages = {
     contactTitle: 'Contact and your rights',
     contactText:
       'Contact details are available in the legal notice. For personal data, GDPR rights include access, correction, erasure, restriction, portability, and objection. You can lodge a complaint with the Austrian Data Protection Authority.',
+    authorityLink: 'Austrian Data Protection Authority (dsb.gv.at)',
     projectText: 'A private project for practicing written multiplication and division.',
     providerTitle: 'Publisher and service provider',
     location: 'Linz, Austria',

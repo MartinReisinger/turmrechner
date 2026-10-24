@@ -6,6 +6,7 @@ defineProps<{ kind: 'privacy' | 'imprint' }>()
 const emit = defineEmits<{ imprint: [] }>()
 const copy = computed(() => legalMessages[currentLanguage.value])
 const revealed = ref(false)
+const contactEmail = window.appConfig?.contactEmail || import.meta.env.VITE_CONTACT_EMAIL || ''
 </script>
 <template>
   <main class="page legal-page">
@@ -27,7 +28,7 @@ const revealed = ref(false)
         <h2>{{ copy.contactTitle }}</h2>
         <p>{{ copy.contactText }}</p>
         <button class="text-link" @click="emit('imprint')">{{ t('imprint') }}</button>
-        <a class="text-link" href="https://dsb.gv.at/" target="_blank" rel="noopener noreferrer">dsb.gv.at</a>
+        <a class="text-link" href="https://dsb.gv.at/" target="_blank" rel="noopener noreferrer">{{ copy.authorityLink }}</a>
       </section>
     </template>
     <template v-else>
@@ -39,7 +40,7 @@ const revealed = ref(false)
         </button>
         <div v-if="revealed" id="provider-details" class="provider-details">
           <p>Martin Reisinger<br />{{ copy.location }}</p>
-          <a class="text-link" href="mailto:contact@example.invalid">contact@example.invalid</a>
+          <a v-if="contactEmail" class="text-link" :href="`mailto:${contactEmail}`">{{ contactEmail }}</a>
         </div>
       </section>
       <section>

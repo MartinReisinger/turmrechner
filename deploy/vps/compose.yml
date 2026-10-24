@@ -4,6 +4,10 @@ services:
     restart: unless-stopped
     ports:
       - '127.0.0.1:3016:8080'
+    environment:
+      CONTACT_EMAIL: ${CONTACT_EMAIL:?Contact email is required}
+    tmpfs:
+      - /www/runtime:uid=65534,gid=65534,mode=0755,size=64k
     read_only: true
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]

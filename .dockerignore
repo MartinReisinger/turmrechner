@@ -11,3 +11,6 @@
 !eslint.config.js
 !tests/
 !tests/**
+!deploy/
+!deploy/vps/
+!deploy/vps/entrypoint.sh
