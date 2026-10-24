@@ -1,8 +1,8 @@
 export const de = {
   offlineShort: 'Offline',
-  offlineShortHint: 'Nach dem ersten Laden',
+  offlineShortHint: 'Auch ohne Internet',
   privateShort: 'Privat',
-  privateShortHint: 'Keine Eingaben an einen Server',
+  privateShortHint: 'Deine Nutzerdaten bleiben auf dem Gerät.',
   cleanShort: 'Anpassbar',
   cleanShortHint: 'Deine Hilfen. Deine Farben.',
   language: 'Sprache',
@@ -71,9 +71,9 @@ export const de = {
 export type MessageKey = keyof typeof de
 export const en: Record<MessageKey, string> = {
   offlineShort: 'Offline',
-  offlineShortHint: 'After the first load',
+  offlineShortHint: 'Works without internet',
   privateShort: 'Private',
-  privateShortHint: 'No inputs sent to a server',
+  privateShortHint: 'Your user data stays on your device.',
   cleanShort: 'Configurable',
   cleanShortHint: 'Your hints. Your colors.',
   language: 'Language',
