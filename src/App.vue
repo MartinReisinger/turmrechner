@@ -89,8 +89,8 @@ function openHistory(id: string | null = null) {
   page.value = 'history'
 }
 function finishOnboarding() {
-  if (preferences.value.preview === null) return change({ onboardingStep: 3 })
-  if (preferences.value.carries === null) return change({ onboardingStep: 4 })
+  if (preferences.value.preview === null) return change({ onboardingStep: 2 })
+  if (preferences.value.carries === null) return change({ onboardingStep: 3 })
   change({ onboarded: true })
 }
 function freshGame() {
@@ -98,6 +98,7 @@ function freshGame() {
   page.value = 'game'
 }
 function clearEverything() {
+  if (!window.confirm(t('confirmReset'))) return
   const cleared = clearStorage([preferencesKey, sessionKey, historyKey])
   reset(false)
   history.clear()

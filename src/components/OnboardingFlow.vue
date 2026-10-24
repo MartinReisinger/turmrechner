@@ -21,13 +21,13 @@ const stages = canInstall ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [0, 2, 3, 4, 5, 6, 7, 
 const titles = [
   'welcome',
   'install',
-  'modeTitle',
   'previewTitle',
   'carryTitle',
   'hapticsTitle',
   'timerTitle',
   'themeTitle',
   'variantsTitle',
+  'modeTitle',
 ] as const
 function move(direction: number) {
   let target = step.value + direction
@@ -57,23 +57,23 @@ watch(step, async () => {
           <WelcomeView v-if="step === 0" />
           <template v-else-if="step === 1"><InstallGuide /></template>
           <ModeChoices
-            v-else-if="step === 2"
+            v-else-if="step === 8"
             :value="preferences.difficulty"
             @select="emit('change', { difficulty: $event })"
           />
           <FeatureComparison
-            v-else-if="step === 3"
+            v-else-if="step === 2"
             feature="preview"
             :selected="preferences.preview"
             @select="select('preview', $event)"
           />
           <FeatureComparison
-            v-else-if="step === 4"
+            v-else-if="step === 3"
             feature="carries"
             :selected="preferences.carries"
             @select="select('carries', $event)"
           />
-          <template v-else-if="step === 5">
+          <template v-else-if="step === 4">
             <div class="choices">
               <button
                 v-for="enabled in [true, false]"
@@ -90,13 +90,13 @@ watch(step, async () => {
               {{ t('testHaptics') }}
             </TapButton>
           </template>
-          <TimerChoices v-else-if="step === 6" :value="preferences.timer" @select="emit('change', { timer: $event })" />
-          <ThemeChoices v-else :preferences="preferences" :variants="step === 8" @change="emit('change', $event)" />
+          <TimerChoices v-else-if="step === 5" :value="preferences.timer" @select="emit('change', { timer: $event })" />
+          <ThemeChoices v-else :preferences="preferences" :variants="step === 7" @change="emit('change', $event)" />
         </div>
       </section>
     </Transition>
     <div class="page-actions">
-      <button v-if="step !== 3 && step !== 4" class="primary" @click="step === 8 ? emit('finish') : move(1)">
+      <button v-if="step !== 2 && step !== 3" class="primary" @click="step === 8 ? emit('finish') : move(1)">
         {{ t(step === 8 ? 'finish' : 'next') }}
       </button>
       <button v-if="step === 1" class="quiet" @click="move(1)">{{ t('noThanks') }}</button>

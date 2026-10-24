@@ -81,6 +81,7 @@ it('switches all UI text immediately and clears only app data when restarting on
   expect(wrapper.get('.brand').text()).toBe('Einstellungen')
   expect(wrapper.get('.reset-all').text()).toBe('Alles zurücksetzen')
   expect(JSON.parse(localStorage.getItem('turmrechner.preferences.v1') ?? '{}').language).toBe('de')
+  vi.spyOn(window, 'confirm').mockReturnValue(true)
   await wrapper.get('.reset-all').trigger('click')
   expect(wrapper.find('.welcome-hero').exists()).toBe(true)
   expect(localStorage.getItem('turmrechner.preferences.v1')).toBe(null)
