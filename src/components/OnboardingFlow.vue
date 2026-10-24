@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
-import type { Preferences } from '../domain/preferences'
+import { onboardingSteps, type Preferences } from '../domain/preferences'
 import { t } from '../i18n'
 import { isIOS, isStandalone } from '../platform/device'
 import WelcomeView from './WelcomeView.vue'
@@ -17,7 +17,7 @@ const canInstall = isIOS() && !isStandalone()
 const step = computed(() =>
   props.preferences.onboardingStep === 1 && !canInstall ? 2 : props.preferences.onboardingStep,
 )
-const stages = canInstall ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [0, 2, 3, 4, 5, 6, 7, 8]
+const stages = onboardingSteps.filter((stage) => stage !== 1 || canInstall)
 const titles = [
   'welcome',
   'install',
@@ -30,9 +30,8 @@ const titles = [
   'modeTitle',
 ] as const
 function move(direction: number) {
-  let target = step.value + direction
-  if (target === 1 && !canInstall) target += direction
-  emit('change', { onboardingStep: Math.max(0, Math.min(8, target)) })
+  const index = Math.max(0, Math.min(stages.length - 1, stages.indexOf(step.value) + direction))
+  emit('change', { onboardingStep: stages[index] })
 }
 function select(feature: 'preview' | 'carries' | 'timer', value: boolean) {
   emit('change', { [feature]: value })
@@ -46,7 +45,7 @@ watch(step, async () => {
 <template>
   <main class="page onboarding" :class="{ 'welcome-page': step === 0 }">
     <div v-if="step > 0" class="step-dots" :aria-label="`${stages.indexOf(step) + 1} / ${stages.length}`" role="status">
-      <span v-for="stage in stages" :key="stage" :class="{ filled: stage <= step }"></span>
+      <span v-for="(stage, index) in stages" :key="stage" :class="{ filled: index <= stages.indexOf(step) }"></span>
     </div>
     <Transition name="fade" mode="out-in">
       <section :key="step" class="onboarding-content">

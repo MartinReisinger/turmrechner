@@ -1,33 +1,10 @@
 # Turmrechner
 
 Practice written multiplication and division in an arithmetic tower. Choose when answers are checked,
-review mistakes, and track your times. Turmrechner is an installable web app in German and English,
-built with Vue 3, TypeScript, and Vite.
+review mistakes, and track your times. Turmrechner is an installable web app in German and English.
+It stores games locally and works offline after its first complete load.
 
 [Open Turmrechner](https://turmrechner.martindev.at/)
-
-## Vue.js Badge Styles
-[![Vue.js](https://img.shields.io/badge/Vue.js-42B883?style=flat&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
-
-![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)
-### Flat
-[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
-
-### Flat Square
-[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat-square&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
-
-### For the Badge
-[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
-
-### Plastic
-[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=plastic&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
-
-### Social
-[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=social&logo=vuedotjs)](https://vuejs.org/)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-97CA00?style=flat)](LICENSE)
-
-[![License](https://img.shields.io/github/license/USERNAME/REPOSITORY?style=flat)](LICENSE)
 
 ## Get started
 
@@ -44,6 +21,34 @@ to install it. An installation guide is included in onboarding.
 
 No account is needed. Game data stays in your browser, with no sync between devices.
 Clearing website data also deletes saved runs. See [app behavior and privacy](docs/app.md) for details.
+
+## Stack
+
+### App
+
+[![Vue 3](https://img.shields.io/badge/Vue%203-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-35495E?style=flat&logo=typescript&logoColor=3178C6)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-35495E?style=flat&logo=vite&logoColor=646CFF)](https://vite.dev/)
+[![Vite PWA](https://img.shields.io/badge/Vite%20PWA-35495E?style=flat&logo=pwa&logoColor=5A0FC8)](https://vite-pwa-org.netlify.app/)
+[![Workbox](https://img.shields.io/badge/Workbox-35495E?style=flat)](https://developer.chrome.com/docs/workbox/)
+[![Lucide](https://img.shields.io/badge/Lucide-35495E?style=flat&logo=lucide&logoColor=F56565)](https://lucide.dev/)
+
+### Development
+
+[![Node.js 24](https://img.shields.io/badge/Node.js%2024-35495E?style=flat&logo=nodedotjs&logoColor=5FA04E)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-35495E?style=flat&logo=pnpm&logoColor=F69220)](https://pnpm.io/)
+[![Vitest](https://img.shields.io/badge/Vitest-35495E?style=flat&logo=vitest&logoColor=6E9F18)](https://vitest.dev/)
+[![Vue Test Utils](https://img.shields.io/badge/Vue%20Test%20Utils-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)](https://test-utils.vuejs.org/)
+[![Happy DOM](https://img.shields.io/badge/Happy%20DOM-35495E?style=flat)](https://github.com/capricorn86/happy-dom)
+[![ESLint](https://img.shields.io/badge/ESLint-35495E?style=flat&logo=eslint&logoColor=A78BFA)](https://eslint.org/)
+[![Prettier](https://img.shields.io/badge/Prettier-35495E?style=flat&logo=prettier&logoColor=F7B93E)](https://prettier.io/)
+
+### Deployment
+
+[![Forgejo Actions](https://img.shields.io/badge/Forgejo%20Actions-35495E?style=flat&logo=forgejo&logoColor=FB923C)](https://forgejo.org/docs/latest/user/actions/)
+[![Docker](https://img.shields.io/badge/Docker-35495E?style=flat&logo=docker&logoColor=2496ED)](https://www.docker.com/)
+[![BusyBox](https://img.shields.io/badge/BusyBox-35495E?style=flat)](https://busybox.net/)
+[![Caddy](https://img.shields.io/badge/Caddy-35495E?style=flat&logo=caddy&logoColor=1F88C0)](https://caddyserver.com/)
 
 ## Develop locally
 
@@ -73,5 +78,7 @@ and describe the resulting behavior in your pull request.
 
 ## License
 
-[MIT](LICENSE), copyright 2026 Martin Reisinger.
+[![License: MIT](https://img.shields.io/badge/License-MIT-97CA00?style=flat)](LICENSE)
+
+Copyright 2026 Martin Reisinger.
 [Third-party notices](THIRD_PARTY_NOTICES.md) cover the Lucide icons.

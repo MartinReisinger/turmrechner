@@ -48,10 +48,10 @@ describe('saved sessions', () => {
 })
 
 describe('preferences', () => {
-  it('requires explicit choices for the two assistance options', () => {
-    expect(defaultPreferences()).toMatchObject({ preview: null, carries: null, theme: 'system' })
+  it('requires explicit choices for the main options', () => {
+    expect(defaultPreferences()).toMatchObject({ preview: null, carries: null, timer: null, theme: 'system' })
     expect(parsePreferences({ ...defaultPreferences(), onboarded: true }).onboarded).toBe(false)
-    expect(parsePreferences({ ...defaultPreferences(), onboardingStep: 6 }).onboardingStep).toBe(2)
+    expect(parsePreferences({ ...defaultPreferences(), onboardingStep: 6 }).onboardingStep).toBe(5)
   })
   it('restores false choices and both theme variants regardless of mode', () => {
     const saved = {

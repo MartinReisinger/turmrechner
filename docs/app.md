@@ -4,9 +4,10 @@
 
 ## App behavior
 
-The first launch introduces offline use, local data storage, and customization. On iOS, an animated guide explains
+The first launch introduces offline use and local data storage, then asks whether to show the timer.
+On iOS, an animated guide follows and explains
 how to add the app to the Home Screen. The guide is skipped when launched in standalone mode or on other devices.
-Users choose calculation previews, manual or mental carry handling, haptics, the optional timer,
+Users then choose calculation previews, manual or mental carry handling, haptics,
 light/dark/system mode, both color variants, and finally Easy/Normal/Hard. Easy is the default difficulty.
 Preview, carry, and timer choices have no defaults and require an explicit selection to advance.
 System mode, white, black, and enabled haptics are preselected.

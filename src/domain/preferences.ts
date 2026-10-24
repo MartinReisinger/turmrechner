@@ -5,6 +5,7 @@ export const difficultyRank = { easy: 0, normal: 1, hard: 2 }
 export type ThemeMode = 'system' | 'light' | 'dark'
 export type LightTheme = 'white' | 'warm'
 export type DarkTheme = 'oled' | 'monokai'
+export const onboardingSteps: readonly number[] = [0, 5, 1, 2, 3, 4, 6, 7, 8]
 export interface Preferences {
   version: 3
   difficulty: Difficulty
@@ -51,12 +52,13 @@ export function parsePreferences(value: unknown): Preferences {
       : value.version === 2
         ? [0, 1, 8, 2, 3, 4, 5, 6, 7][requestedStep]
         : requestedStep
-  const onboardingStep = Math.min(
+  const required = [
     migrated,
-    preview === null ? 2 : 8,
-    carries === null ? 3 : 8,
-    timer === null ? 5 : 8,
-  )
+    ...(timer === null ? [5] : []),
+    ...(preview === null ? [2] : []),
+    ...(carries === null ? [3] : []),
+  ]
+  const onboardingStep = onboardingSteps.find((step) => required.includes(step)) ?? 0
   return {
     version: 3,
     difficulty: value.difficulty === 'normal' || value.difficulty === 'hard' ? value.difficulty : 'easy',
