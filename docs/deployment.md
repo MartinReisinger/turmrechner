@@ -6,15 +6,21 @@
 
 - URL: https://turmrechner.com
 - Previous domain: `turmrechner.martindev.at` permanently redirects to the new domain, preserving paths and queries.
-- Repository: https://git.martindev.at/MartinReisinger/turmrechner
-- Flow: Forgejo Actions → Docker Compose → host Caddy.
+- Repository: https://github.com/MartinReisinger/turmrechner
+- Source: GitHub is the primary repository; `forgejo` retains the previous repository.
+- Flow: GitHub Actions → GHCR → restricted SSH → Docker Compose → host Caddy.
 - Host directory: `/home/deploy/turmrechner`.
 - Binding: `127.0.0.1:3016` → container port `8080`.
 - Runtime: BusyBox httpd as an unprivileged user with a read-only filesystem.
 
 The multistage Docker build installs pinned dependencies, runs validation, and copies only `dist/` to the runtime.
-After push approval, pushes to `main` deploy automatically; Markdown-only changes skip deployment.
-The workflow uses `vps-runner`, `local/runner-env`, and the existing `REGISTRY_TOKEN` user secret.
+After push approval, pushes to GitHub `main` deploy automatically; Markdown-only changes skip deployment.
+The workflow uses GitHub-hosted runners and its temporary `GITHUB_TOKEN` for GHCR.
+Repository secrets `SSH_PRIVATE_KEY`, `SSH_HOST`, and `SSH_KNOWN_HOSTS` configure deployment.
+The dedicated SSH key is restricted to `/usr/local/sbin/deploy-turmrechner`, installed from
+`deploy/vps/deploy-github.sh`. It accepts only a full commit SHA and reads the temporary registry token over stdin.
+It downloads that revision's Compose file, pulls its image, and waits for health before recording the revision.
+If startup fails, it restores the previous Compose service. Registry credentials are removed after each attempt.
 Images carry the Git revision label and commit tag. Compose deploys that exact tag.
 The host `.env` records `DEPLOY_COMMIT` after a successful deploy and preserves existing settings.
 Set `CONTACT_EMAIL` in that ignored file. The container generates `/runtime/config.js` on a small tmpfs at startup;

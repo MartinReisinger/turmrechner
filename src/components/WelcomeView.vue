@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t } from '../i18n'
+import { repositoryUrl } from '../platform/links'
 import AppIcon from './AppIcon.vue'
 const features = [
   { icon: 'offline', title: 'offlineShort', hint: 'offlineShortHint' },
@@ -16,14 +17,22 @@ const features = [
       <h1>{{ t('title') }}</h1>
     </div>
     <div class="feature-cards">
-      <div v-for="feature in features" :key="feature.title" class="feature-card">
+      <component
+        :is="feature.title === 'openSourceShort' ? 'a' : 'div'"
+        v-for="feature in features"
+        :key="feature.title"
+        class="feature-card"
+        :href="feature.title === 'openSourceShort' ? repositoryUrl : undefined"
+        :target="feature.title === 'openSourceShort' ? '_blank' : undefined"
+        :rel="feature.title === 'openSourceShort' ? 'noopener noreferrer' : undefined"
+      >
         <AppIcon :name="feature.icon" :size="24" />
         <div>
           <h2>{{ t(feature.title) }}</h2>
           <p>{{ t(feature.hint) }}</p>
         </div>
         <span class="feature-check"><AppIcon name="check" :size="14" /></span>
-      </div>
+      </component>
     </div>
   </div>
 </template>
@@ -53,6 +62,8 @@ h1 {
   gap: 12px;
 }
 .feature-card {
+  color: inherit;
+  text-decoration: none;
   display: grid;
   grid-template-columns: 26px 1fr 20px;
   align-items: center;
@@ -88,6 +99,8 @@ h2 {
     height: 58px;
   }
   .feature-card {
+    color: inherit;
+    text-decoration: none;
     padding: 14px 18px;
   }
 }

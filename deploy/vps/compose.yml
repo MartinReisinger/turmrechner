@@ -1,6 +1,6 @@
 services:
   app:
-    image: git.martindev.at/martinreisinger/turmrechner:${DEPLOY_COMMIT:?DEPLOY_COMMIT is required}
+    image: ghcr.io/martinreisinger/turmrechner:${DEPLOY_COMMIT:?DEPLOY_COMMIT is required}
     restart: unless-stopped
     ports:
       - '127.0.0.1:3016:8080'

@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { currentLanguage, t } from '../i18n'
 import { legalMessages } from '../i18n/legal'
+import { repositoryUrl } from '../platform/links'
 defineProps<{ kind: 'privacy' | 'imprint' }>()
 const emit = defineEmits<{ imprint: [] }>()
 const copy = computed(() => legalMessages[currentLanguage.value])
@@ -28,14 +29,22 @@ const contactEmail = window.appConfig?.contactEmail || import.meta.env.VITE_CONT
         <h2>{{ copy.contactTitle }}</h2>
         <p>{{ copy.contactText }}</p>
         <button class="text-link" @click="emit('imprint')">{{ t('imprint') }}</button>
-        <a class="text-link" href="https://dsb.gv.at/" target="_blank" rel="noopener noreferrer">{{ copy.authorityLink }}</a>
+        <a class="text-link" href="https://dsb.gv.at/" target="_blank" rel="noopener noreferrer">{{
+          copy.authorityLink
+        }}</a>
       </section>
     </template>
     <template v-else>
       <p>{{ copy.projectText }}</p>
+      <a class="text-link" :href="repositoryUrl" target="_blank" rel="noopener noreferrer">{{ copy.repositoryLink }}</a>
       <section>
         <h2>{{ copy.providerTitle }}</h2>
-        <button class="text-link" :aria-expanded="revealed" aria-controls="provider-details" @click="revealed = !revealed">
+        <button
+          class="text-link"
+          :aria-expanded="revealed"
+          aria-controls="provider-details"
+          @click="revealed = !revealed"
+        >
           {{ revealed ? copy.hideInfo : copy.showInfo }}
         </button>
         <div v-if="revealed" id="provider-details" class="provider-details">

@@ -48,7 +48,7 @@ Clearing website data also deletes saved runs and achievements. See [app behavio
 
 ### Deployment
 
-[![Forgejo Actions](https://img.shields.io/badge/Forgejo%20Actions-35495E?style=flat&logo=forgejo&logoColor=FB923C)](https://forgejo.org/docs/latest/user/actions/)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-35495E?style=flat&logo=githubactions&logoColor=2088FF)](https://github.com/MartinReisinger/turmrechner/actions)
 [![Docker](https://img.shields.io/badge/Docker-35495E?style=flat&logo=docker&logoColor=2496ED)](https://www.docker.com/)
 [![BusyBox](https://img.shields.io/badge/BusyBox-35495E?style=flat)](https://busybox.net/)
 [![Caddy](https://img.shields.io/badge/Caddy-35495E?style=flat&logo=caddy&logoColor=1F88C0)](https://caddyserver.com/)
@@ -69,11 +69,11 @@ pnpm verify
 ```
 
 See the [development guide](docs/development.md) for code organization, offline previews, and icon generation.
-The [deployment guide](docs/deployment.md) describes the Forgejo Actions and Docker setup.
+The [deployment guide](docs/deployment.md) describes the GitHub Actions and Docker setup.
 
 ## Help and contributions
 
-Report bugs and suggest improvements in the [issue tracker](https://git.martindev.at/MartinReisinger/turmrechner/issues).
+Report bugs and suggest improvements in the [issue tracker](https://github.com/MartinReisinger/turmrechner/issues).
 For bugs, include reproduction steps, your device and browser, and the selected game mode.
 
 Martin Reisinger maintains this project. For contributions, keep changes focused, run `pnpm verify`,
