@@ -1,0 +1,132 @@
+.game {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+.center-screen {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-height: 0;
+  overflow: auto;
+}
+.seed-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.seed-value {
+  text-align: center;
+  margin-top: 10px;
+  min-height: 58px;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+.seed-text {
+  position: relative;
+  display: inline-block;
+  line-height: 1.2;
+}
+.seed-text.empty {
+  width: 0;
+  min-height: 1.2em;
+}
+.seed-text.empty .seed-cursor {
+  left: -0.29em;
+}
+.seed-cursor {
+  position: absolute;
+  left: calc(100% + 6px);
+  bottom: 7px;
+  width: 0.58em;
+  height: 3px;
+  border-radius: 4px;
+  background: var(--text);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.seed-hint {
+  margin-top: 12px;
+}
+.game-screen {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 5px;
+}
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+.step {
+  font-size: 17px;
+  font-weight: 780;
+}
+.counter {
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.progress {
+  height: 3px;
+  background: var(--key);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.progress div {
+  height: 100%;
+  background: var(--text);
+  transition: width 0.18s ease;
+}
+.tower-container {
+  min-height: 0;
+  display: grid;
+}
+.prompt {
+  min-height: 27px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.25;
+  padding-top: 3px;
+}
+.done-mark {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: var(--key);
+  color: var(--good);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 13px;
+}
+.done-text {
+  margin: 7px 0 12px;
+}
+.done-seed {
+  font-size: 42px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.bottom {
+  display: grid;
+  gap: 7px;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scaleX(0.72);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}

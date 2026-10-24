@@ -1,5 +1,13 @@
 *
+!package.json
+!pnpm-lock.yaml
 !index.html
-!favicon.svg
-!favicon.ico
-!apple-touch-icon.png
+!vite.config.ts
+!tsconfig.json
+!src/
+!src/**
+!public/
+!public/**
+!eslint.config.js
+!tests/
+!tests/**

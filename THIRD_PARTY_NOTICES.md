@@ -1,6 +1,6 @@
 # Third-party notices
 
-`favicon.svg`, `favicon.ico`, and `apple-touch-icon.png` use Lucide’s
+`public/favicon.svg`, browser/PWA icons, and the Lucide Vue UI components use Lucide’s
 [`align-vertical-justify-end`](https://lucide.dev/icons/align-vertical-justify-end) icon,
 with app colors and padding added.
 

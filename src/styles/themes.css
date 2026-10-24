@@ -1,0 +1,65 @@
+[data-theme='white'] {
+  color-scheme: light;
+  --bg: #fafafa;
+  --text: #17191d;
+  --muted: #666c74;
+  --soft: #545b65;
+  --key: #eceef0;
+  --key-down: #e0e3e7;
+  --good: #23753a;
+  --bad: #b92e2e;
+  --accent: #17191d;
+  --on-accent: #fafafa;
+}
+[data-theme='warm'] {
+  color-scheme: light;
+  --bg: #fdf6e3;
+  --text: #39382e;
+  --muted: #747264;
+  --soft: #686654;
+  --key: #e9e4d5;
+  --key-down: #dcd5bf;
+  --good: #5c761d;
+  --bad: #bd3565;
+  --accent: #ad3268;
+  --on-accent: #fffaf0;
+  --operator: #08798a;
+  --helper: #8660a8;
+  --selection: #ad3268;
+  --cursor: #66831e;
+}
+[data-theme='charcoal'] {
+  color-scheme: dark;
+  --bg: #090a0c;
+  --text: #f4f5f6;
+  --muted: #969da6;
+  --soft: #b9bec4;
+  --key: #15181c;
+  --key-down: #20242a;
+  --good: #83dc8d;
+  --bad: #ff7b73;
+  --accent: #eef0f2;
+  --on-accent: #0b0c0e;
+}
+[data-theme='oled'] {
+  color-scheme: dark;
+  --bg: #000000;
+  --text: #f4f5f6;
+  --muted: #969da6;
+  --soft: #b9bec4;
+  --key: #111113;
+  --key-down: #202023;
+  --good: #83dc8d;
+  --bad: #ff7b73;
+  --accent: #eef0f2;
+  --on-accent: #0b0c0e;
+}
+
+[data-theme='white'],
+[data-theme='charcoal'],
+[data-theme='oled'] {
+  --operator: var(--soft);
+  --helper: var(--soft);
+  --selection: var(--text);
+  --cursor: var(--text);
+}
