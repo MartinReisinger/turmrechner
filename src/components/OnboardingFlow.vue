@@ -118,7 +118,7 @@ watch(step, async () => {
   gap: 5px;
 }
 .step-dots span {
-  width: 18px;
+  flex: 1;
   height: 3px;
   border-radius: 3px;
   background: var(--key-down);
