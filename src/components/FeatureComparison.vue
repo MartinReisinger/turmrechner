@@ -22,7 +22,7 @@ const frame = useDemoAnimation()
         :carries="feature === 'carries' && enabled"
       />
       <span class="choice-label">{{
-        t(feature === 'carries' ? (enabled ? 'show' : 'mental') : enabled ? 'with' : 'without')
+        t(feature === 'carries' ? (enabled ? 'enter' : 'mental') : enabled ? 'with' : 'without')
       }}</span>
     </button>
   </div>
