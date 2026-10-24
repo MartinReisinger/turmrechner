@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import type { LanguageMode } from '../i18n/language'
-import type { Preferences } from '../domain/preferences'
+import type { Difficulty, Preferences } from '../domain/preferences'
 import { t } from '../i18n'
 import ThemeChoices from './ThemeChoices.vue'
 import ModeChoices from './ModeChoices.vue'
 import TimerChoices from './TimerChoices.vue'
 import FeatureComparison from './FeatureComparison.vue'
 import TapButton from './TapButton.vue'
-defineProps<{ preferences: Preferences; updateReady: boolean; storageIssue: boolean }>()
+defineProps<{
+  preferences: Preferences
+  updateReady: boolean
+  storageIssue: boolean
+  minimumDifficulty?: Difficulty | null
+}>()
 const languages: LanguageMode[] = ['de', 'en', 'system']
 const emit = defineEmits<{ change: [value: Partial<Preferences>]; reset: []; clear: []; update: [] }>()
 </script>
@@ -15,7 +20,11 @@ const emit = defineEmits<{ change: [value: Partial<Preferences>]; reset: []; cle
   <main class="page settings">
     <section>
       <h2>{{ t('mode') }}</h2>
-      <ModeChoices :value="preferences.difficulty" @select="emit('change', { difficulty: $event })" />
+      <ModeChoices
+        :value="preferences.difficulty"
+        :minimum="minimumDifficulty"
+        @select="emit('change', { difficulty: $event })"
+      />
     </section>
     <section>
       <h2>{{ t('timer') }}</h2>

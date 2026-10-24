@@ -72,6 +72,7 @@ Those requests contain connection metadata; the privacy claim concerns applicati
 Easy blocks wrong inputs immediately and records failed attempts. Normal accepts all digits, checks at the end
 of each row, and corrects mistakes with a right-to-left digit-wheel animation. Correct rows pulse green without
 blocking the next input. Hard leaves wrong answers in place and evaluates only after the entire tower.
+During a run, modes can only increase in difficulty; lower mode buttons are disabled. Starting a new game unlocks all modes.
 Mode changes take effect at the next row; other preferences apply immediately and all changes are recorded.
 Undo is available in Normal/Hard. It restores the previous input including any automatic carry, while retaining
 mistake history. Every visible result digit, including leading digits, always requires input.

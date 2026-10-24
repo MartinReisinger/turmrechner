@@ -1,6 +1,7 @@
 import { isRecord } from '../platform/storage'
 import type { LanguageMode } from '../i18n/language'
 export type Difficulty = 'easy' | 'normal' | 'hard'
+export const difficultyRank = { easy: 0, normal: 1, hard: 2 }
 export type ThemeMode = 'system' | 'light' | 'dark'
 export type LightTheme = 'white' | 'warm'
 export type DarkTheme = 'charcoal' | 'oled'

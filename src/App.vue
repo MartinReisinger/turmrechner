@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
-import { defaultPreferences, parsePreferences, type Preferences } from './domain/preferences'
+import {
+  defaultPreferences,
+  difficultyRank,
+  parsePreferences,
+  type Difficulty,
+  type Preferences,
+} from './domain/preferences'
 import { clearStorage, readStorage, writeStorage } from './platform/storage'
 import { historyKey, useRunHistory } from './composables/useRunHistory'
 import RunHistoryView from './components/RunHistoryView.vue'
@@ -52,7 +58,22 @@ const canPlay = computed(
   () => preferences.value.onboarded && page.value === 'game' && !showResume.value && !correction.value,
 )
 useTheme(preferences)
+const minimumDifficulty = computed<Difficulty | null>(() => {
+  if (game.value.kind !== 'playing' && !correction.value) return null
+  const modes: Difficulty[] = [
+    preferences.value.difficulty,
+    ...(meta.value?.changes.map((change) => change.settings.difficulty) ?? []),
+  ]
+  if (activeMode.value) modes.push(activeMode.value)
+  return modes.reduce((highest, mode) => (difficultyRank[mode] > difficultyRank[highest] ? mode : highest), 'easy')
+})
 function change(value: Partial<Preferences>) {
+  if (
+    value.difficulty &&
+    minimumDifficulty.value &&
+    difficultyRank[value.difficulty] < difficultyRank[minimumDifficulty.value]
+  )
+    return
   preferences.value = { ...preferences.value, ...value }
   recordSettingsForRun()
   preferenceStorageIssue.value = !writeStorage(preferencesKey, preferences.value)
@@ -84,6 +105,14 @@ function clearEverything() {
   preferenceStorageIssue.value = !cleared
   page.value = 'game'
 }
+watch(
+  minimumDifficulty,
+  (minimum) => {
+    if (minimum && difficultyRank[preferences.value.difficulty] < difficultyRank[minimum])
+      change({ difficulty: minimum })
+  },
+  { immediate: true },
+)
 const deviceLanguageChanged = () => setLanguage(preferences.value.language)
 watch(() => preferences.value.language, setLanguage, { immediate: true })
 function keyboard(event: KeyboardEvent) {
@@ -198,6 +227,7 @@ onUnmounted(() => {
     <SettingsView
       v-else-if="page === 'settings'"
       :preferences="preferences"
+      :minimum-difficulty="minimumDifficulty"
       :update-ready="needRefresh"
       :storage-issue="storageIssue || preferenceStorageIssue || history.storageIssue.value"
       @change="change"

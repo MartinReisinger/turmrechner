@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Difficulty } from '../domain/preferences'
+import { difficultyRank, type Difficulty } from '../domain/preferences'
 import { t } from '../i18n'
 import AppIcon from './AppIcon.vue'
-defineProps<{ value: Difficulty }>()
+defineProps<{ value: Difficulty; minimum?: Difficulty | null }>()
 const emit = defineEmits<{ select: [value: Difficulty] }>()
 const modes = [
   { value: 'easy', icon: 'zap', hint: 'easyHint' },
@@ -17,6 +17,7 @@ const modes = [
       :key="mode.value"
       class="choice"
       :aria-pressed="value === mode.value"
+      :disabled="minimum != null && difficultyRank[mode.value] < difficultyRank[minimum]"
       @click="emit('select', mode.value)"
     >
       <AppIcon :name="mode.icon" /><span class="choice-label">{{ t(mode.value) }}</span>
