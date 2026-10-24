@@ -27,6 +27,7 @@ body,
 #app {
   height: 100%;
   overflow: hidden;
+  background-color: var(--bg);
 }
 body {
   position: fixed;
@@ -61,9 +62,10 @@ input:focus-visible {
 .app {
   position: fixed;
   inset: 0;
+  background-color: var(--bg);
   width: min(520px, 100%);
   margin: auto;
-  padding: calc(env(safe-area-inset-top) + 8px) 14px 0;
+  padding: calc(env(safe-area-inset-top) + 8px) 14px 4px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);

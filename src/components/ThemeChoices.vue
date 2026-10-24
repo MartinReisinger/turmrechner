@@ -21,6 +21,9 @@ const sample = samples[samples.length - 2]
       :aria-pressed="chosen('theme') && preferences.theme === mode"
       @click="emit('change', { theme: mode })"
     >
+      <span v-if="chosen('theme') && preferences.theme === mode" class="swatch-check" aria-hidden="true">
+        <AppIcon name="check" :size="13" />
+      </span>
       <AppIcon :name="mode === 'light' ? 'sun' : mode === 'dark' ? 'moon' : 'system'" />
       <span class="choice-label">{{ t(mode) }}</span>
     </button>
@@ -37,6 +40,9 @@ const sample = samples[samples.length - 2]
           :aria-pressed="chosen('light') && preferences.light === variant"
           @click="emit('change', { light: variant })"
         >
+          <span v-if="chosen('light') && preferences.light === variant" class="swatch-check" aria-hidden="true">
+            <AppIcon name="check" :size="13" />
+          </span>
           <ArithmeticDemo
             :frame="sample"
             :preview="preferences.preview === true"
@@ -58,6 +64,9 @@ const sample = samples[samples.length - 2]
           :aria-pressed="chosen('dark') && preferences.dark === variant"
           @click="emit('change', { dark: variant })"
         >
+          <span v-if="chosen('dark') && preferences.dark === variant" class="swatch-check" aria-hidden="true">
+            <AppIcon name="check" :size="13" />
+          </span>
           <ArithmeticDemo
             :frame="sample"
             :preview="preferences.preview === true"
@@ -77,6 +86,7 @@ const sample = samples[samples.length - 2]
   gap: 10px;
 }
 .mode-choices .choice {
+  position: relative;
   padding: 22px 8px;
 }
 .variant-groups {
@@ -88,11 +98,32 @@ const sample = samples[samples.length - 2]
   font-size: 12px;
 }
 .swatch {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   background: var(--bg);
   color: var(--text);
   border: 1px solid var(--muted);
+  transition:
+    opacity 0.2s,
+    outline-color 0.2s,
+    transform 0.2s;
+}
+.choices:has(.swatch[aria-pressed='true']) .swatch[aria-pressed='false'],
+.mode-choices:has(.choice[aria-pressed='true']) .choice[aria-pressed='false'] {
+  opacity: 0.5;
+}
+.swatch-check {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 </style>

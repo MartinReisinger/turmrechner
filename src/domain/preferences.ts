@@ -40,17 +40,17 @@ export function defaultPreferences(): Preferences {
     onboarded: false,
   }
 }
+export const onboardingRequirements: [number, OnboardingOption[]][] = [
+  [6, ['theme']],
+  [7, ['light', 'dark']],
+  [5, ['timer']],
+  [2, ['preview']],
+  [3, ['carries']],
+  [4, ['haptics']],
+  [8, ['difficulty']],
+]
 export function missingOnboardingStep(preferences: Preferences): number | undefined {
-  const requirements: [number, OnboardingOption[]][] = [
-    [6, ['theme']],
-    [7, ['light', 'dark']],
-    [5, ['timer']],
-    [2, ['preview']],
-    [3, ['carries']],
-    [4, ['haptics']],
-    [8, ['difficulty']],
-  ]
-  return requirements.find(([, keys]) => keys.some((key) => !preferences.onboardingChoices.includes(key)))?.[0]
+  return onboardingRequirements.find(([, keys]) => keys.some((key) => !preferences.onboardingChoices.includes(key)))?.[0]
 }
 export function parsePreferences(value: unknown): Preferences {
   const defaults = defaultPreferences()

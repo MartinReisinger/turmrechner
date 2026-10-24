@@ -6,9 +6,9 @@
 
 The first launch introduces offline use and local data storage. The next pages ask for light/dark/system mode
 and both theme variants, followed by timer, calculation preview, carry handling, haptics, and difficulty.
-No onboarding option is preselected. Only the introduction and the two appearance pages have a Next button.
-The appearance pages require an explicit choice before Next becomes available. All later selections advance
-automatically, and selecting the difficulty finishes onboarding. Back remains available on every choice page.
+No onboarding option is preselected. Every page has a Next button. Choice pages require an explicit selection
+before Next becomes available; the theme page requires both a light and a dark variant.
+Next on the difficulty page finishes onboarding. Back remains available on every choice page.
 Existing completed onboarding and saved preferences are preserved.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.
 Dark variants are Black (left, default) and Monokai (right). Dark Monokai uses a `#272822` background

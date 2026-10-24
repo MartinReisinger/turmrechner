@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
-import { onboardingOptions, onboardingSteps, type Preferences } from '../domain/preferences'
+import { onboardingOptions, onboardingRequirements, onboardingSteps, type Preferences } from '../domain/preferences'
 import { t } from '../i18n'
 import WelcomeView from './WelcomeView.vue'
 import FeatureComparison from './FeatureComparison.vue'
@@ -14,8 +14,8 @@ const heading = ref<HTMLElement>()
 const step = computed(() => props.preferences.onboardingStep)
 const stages = onboardingSteps
 const canContinue = computed(() =>
-  (step.value === 6 ? ['theme'] : step.value === 7 ? ['light', 'dark'] : [])
-    .every((key) => props.preferences.onboardingChoices.some((choice) => choice === key)),
+  (onboardingRequirements.find(([page]) => page === step.value)?.[1] ?? [])
+    .every((key) => props.preferences.onboardingChoices.includes(key)),
 )
 const titles = [
   'welcome',
@@ -33,18 +33,14 @@ function move(direction: number) {
   emit('change', { onboardingStep: stages[index] })
 }
 function select(feature: 'preview' | 'carries' | 'timer', value: boolean) {
-  choose({ [feature]: value }, true)
+  choose({ [feature]: value })
 }
-function choose(value: Partial<Preferences>, advance = false) {
+function choose(value: Partial<Preferences>) {
   const choices = onboardingOptions.filter((key) => value[key] !== undefined)
   emit('change', {
     ...value,
     onboardingChoices: [...new Set([...props.preferences.onboardingChoices, ...choices])],
   })
-  if (advance) {
-    if (step.value === 8) emit('finish')
-    else move(1)
-  }
 }
 watch(step, async () => {
   await nextTick()
@@ -66,7 +62,7 @@ watch(step, async () => {
           <ModeChoices
             v-else-if="step === 8"
             :value="preferences.onboardingChoices.includes('difficulty') ? preferences.difficulty : null"
-            @select="choose({ difficulty: $event }, true)"
+            @select="choose({ difficulty: $event })"
           />
           <FeatureComparison
             v-else-if="step === 2"
@@ -87,7 +83,7 @@ watch(step, async () => {
                 :key="String(enabled)"
                 class="choice"
                 :aria-pressed="preferences.onboardingChoices.includes('haptics') && preferences.haptics === enabled"
-                @click="choose({ haptics: enabled }, true)"
+                @click="choose({ haptics: enabled })"
               >
                 <span class="haptic-wave" :class="{ moving: enabled }" aria-hidden="true">· · ·</span>
                 <span class="choice-label">{{ t(enabled ? 'on' : 'off') }}</span>
@@ -109,7 +105,7 @@ watch(step, async () => {
       </section>
     </Transition>
     <div class="page-actions">
-      <button v-if="step === 0 || step === 6 || step === 7" class="primary" :disabled="!canContinue" @click="move(1)">
+      <button class="primary" :disabled="!canContinue" @click="step === 8 ? emit('finish') : move(1)">
         {{ t('next') }}
       </button>
       <button v-if="step > 0" class="quiet" @click="move(-1)">{{ t('back') }}</button>
