@@ -4,6 +4,7 @@ import AppIcon from './AppIcon.vue'
 const features = [
   { icon: 'offline', title: 'offlineShort', hint: 'offlineShortHint' },
   { icon: 'privacy', title: 'privateShort', hint: 'privateShortHint' },
+  { icon: 'noAds', title: 'noAdsShort', hint: 'noAdsShortHint' },
   { icon: 'sliders', title: 'cleanShort', hint: 'cleanShortHint' },
 ] as const
 </script>
