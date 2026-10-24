@@ -7,6 +7,7 @@ built with Vue 3, TypeScript, and Vite.
 [Open Turmrechner](https://turmrechner.martindev.at/)
 
 ## Vue.js Badge Styles
+[![Vue.js](https://img.shields.io/badge/Vue.js-42B883?style=flat&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 
 ![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)
 ### Flat
