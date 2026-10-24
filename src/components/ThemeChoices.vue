@@ -36,7 +36,12 @@ const sample = samples[samples.length - 2]
           :aria-pressed="preferences.light === variant"
           @click="emit('change', { light: variant })"
         >
-          <ArithmeticDemo :frame="sample" :preview="false" :carries="false" :show-preview-row="false" />
+          <ArithmeticDemo
+            :frame="sample"
+            :preview="preferences.preview === true"
+            :carries="preferences.carries === true"
+            :show-preview-row="preferences.preview === true"
+          />
           <span class="choice-label">{{ t(variant) }}</span>
         </button>
       </div>
@@ -52,7 +57,12 @@ const sample = samples[samples.length - 2]
           :aria-pressed="preferences.dark === variant"
           @click="emit('change', { dark: variant })"
         >
-          <ArithmeticDemo :frame="sample" :preview="false" :carries="false" :show-preview-row="false" />
+          <ArithmeticDemo
+            :frame="sample"
+            :preview="preferences.preview === true"
+            :carries="preferences.carries === true"
+            :show-preview-row="preferences.preview === true"
+          />
           <span class="choice-label">{{ t(variant) }}</span>
         </button>
       </div>

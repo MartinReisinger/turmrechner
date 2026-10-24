@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../src/App.vue'
 import GameView from '../src/components/GameView.vue'
 import ArithmeticDemo from '../src/components/ArithmeticDemo.vue'
+import ThemeChoices from '../src/components/ThemeChoices.vue'
 import { demoFrames } from '../src/domain/demo'
 import { defaultPreferences } from '../src/domain/preferences'
 import { enterDigit, startGame } from '../src/domain/game'
@@ -127,4 +128,23 @@ it('places the start-number cursor after the entered digits and removes it at th
   expect(wrapper.get('.seed-text').text()).toBe('')
   expect(wrapper.get('.seed-text').classes()).toContain('empty')
   expect(wrapper.find('.seed-cursor').exists()).toBe(true)
+})
+
+it('renders theme samples with the selected preview and carry preferences', async () => {
+  const wrapper = mount(ThemeChoices, {
+    props: {
+      preferences: { ...defaultPreferences(), preview: true, carries: true },
+      variants: true,
+    },
+  })
+  wrappers.push(wrapper)
+  expect(wrapper.findAll('.demo-prompt')).toHaveLength(4)
+  for (const sample of wrapper.findAll('.arithmetic-demo')) {
+    expect(sample.get('.demo-prompt').text()).toBe('5 × 2')
+    expect(sample.get('.helpers').text()).toContain('1')
+    expect(sample.find('.cursor').exists()).toBe(true)
+  }
+  await wrapper.setProps({ preferences: { ...defaultPreferences(), preview: false, carries: false } })
+  expect(wrapper.findAll('.demo-prompt')).toHaveLength(0)
+  for (const sample of wrapper.findAll('.arithmetic-demo')) expect(sample.get('.helpers').text()).toBe('')
 })

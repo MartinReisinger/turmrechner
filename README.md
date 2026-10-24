@@ -33,6 +33,7 @@ how to add the app to the Home Screen. The guide is skipped when launched in sta
 Users then choose calculation previews, manual or mental carry handling, haptics, light/dark/system mode, and both color variants.
 Preview and carry choices have no defaults. System mode, white, charcoal, and enabled haptics are preselected.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.
+Color samples reflect the selected assistance options and show an unfinished digit with its cursor.
 
 “Show” displays carries and remainders and requires entering them, including zero.
 “In your head” asks for result digits only and computes carries/remainders internally.
