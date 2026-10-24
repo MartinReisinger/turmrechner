@@ -23,6 +23,10 @@ built with Vue 3, TypeScript, and Vite.
 ### Social
 [![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=social&logo=vuedotjs)](https://vuejs.org/)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-97CA00?style=flat)](LICENSE)
+
+[![License](https://img.shields.io/github/license/USERNAME/REPOSITORY?style=flat)](LICENSE)
+
 ## Get started
 
 Open the app, choose your preferences, and enter a starting number or generate one at random.
