@@ -2,7 +2,9 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import { onboardingOptions, onboardingRequirements, onboardingSteps, type Preferences } from '../domain/preferences'
 import { t } from '../i18n'
+import { isIOS, isStandalone } from '../platform/device'
 import WelcomeView from './WelcomeView.vue'
+import InstallGuide from './InstallGuide.vue'
 import FeatureComparison from './FeatureComparison.vue'
 import ThemeChoices from './ThemeChoices.vue'
 import ModeChoices from './ModeChoices.vue'
@@ -11,8 +13,11 @@ import TapButton from './TapButton.vue'
 const props = defineProps<{ preferences: Preferences }>()
 const emit = defineEmits<{ change: [value: Partial<Preferences>]; finish: [] }>()
 const heading = ref<HTMLElement>()
-const step = computed(() => props.preferences.onboardingStep)
-const stages = onboardingSteps
+const canInstall = isIOS() && !isStandalone()
+const step = computed(() =>
+  props.preferences.onboardingStep === 1 && !canInstall ? 6 : props.preferences.onboardingStep,
+)
+const stages = onboardingSteps.filter((stage) => stage !== 1 || canInstall)
 const canContinue = computed(() =>
   (onboardingRequirements.find(([page]) => page === step.value)?.[1] ?? [])
     .every((key) => props.preferences.onboardingChoices.includes(key)),
@@ -59,6 +64,7 @@ watch(step, async () => {
         </div>
         <div class="page-body">
           <WelcomeView v-if="step === 0" />
+          <InstallGuide v-else-if="step === 1" />
           <ModeChoices
             v-else-if="step === 8"
             :value="preferences.onboardingChoices.includes('difficulty') ? preferences.difficulty : null"

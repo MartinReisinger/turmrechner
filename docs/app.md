@@ -4,14 +4,16 @@
 
 ## App behavior
 
-The first launch introduces offline use and local data storage. The next pages ask for light/dark/system mode
+The first launch introduces offline use and local data storage. On iPhone and iPad, the installation guide
+comes immediately after the introduction, unless the app is already installed. Other devices skip this page.
+The next pages ask for light/dark/system mode
 and both theme variants, followed by timer, calculation preview, carry handling, haptics, and difficulty.
 No onboarding option is preselected. Every page has a Next button. Choice pages require an explicit selection
 before Next becomes available; the theme page requires both a light and a dark variant.
 Next on the difficulty page finishes onboarding. Back remains available on every choice page.
 Existing completed onboarding and saved preferences are preserved.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.
-Dark variants are Black (left, default) and Monokai (right). Dark Monokai uses a `#272822` background
+Dark variants are Black (left) and Monokai (right). Dark Monokai uses a `#272822` background
 with pink, cyan, purple, and green accents. Saved Charcoal choices migrate to Black.
 Color samples reflect the selected assistance options and show an unfinished digit with its cursor.
 

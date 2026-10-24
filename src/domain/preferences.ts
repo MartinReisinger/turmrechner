@@ -5,7 +5,7 @@ export const difficultyRank = { easy: 0, normal: 1, hard: 2 }
 export type ThemeMode = 'system' | 'light' | 'dark'
 export type LightTheme = 'white' | 'warm'
 export type DarkTheme = 'oled' | 'monokai'
-export const onboardingSteps: readonly number[] = [0, 6, 7, 5, 2, 3, 4, 8]
+export const onboardingSteps: readonly number[] = [0, 1, 6, 7, 5, 2, 3, 4, 8]
 export const onboardingOptions = ['theme', 'light', 'dark', 'timer', 'preview', 'carries', 'haptics', 'difficulty'] as const
 export type OnboardingOption = (typeof onboardingOptions)[number]
 export interface Preferences {
@@ -83,7 +83,7 @@ export function parsePreferences(value: unknown): Preferences {
     theme: value.theme === 'light' || value.theme === 'dark' ? value.theme : 'system',
     light: value.light === 'warm' ? 'warm' : 'white',
     dark: value.dark === 'monokai' ? 'monokai' : 'oled',
-    onboardingStep: migrated === 1 ? 6 : migrated,
+    onboardingStep: migrated,
     onboardingChoices,
     onboarded: false,
   }
