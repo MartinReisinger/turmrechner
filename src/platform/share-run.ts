@@ -5,9 +5,13 @@ import { t } from '../i18n'
 import { formatLocalDate } from './date-format'
 export const appUrl = 'https://turmrechner.martindev.at/'
 export async function renderRunImage(run: RunView): Promise<File> {
+  const rows = run.reviews.map((review) => {
+    const cells = reviewDisplayCells(review)
+    return { review, cells, height: cells.some((cell) => cell.helper) ? 80 : 64 }
+  })
   const canvas = document.createElement('canvas')
   canvas.width = 1080
-  canvas.height = 450 + run.reviews.length * 100
+  canvas.height = 450 + rows.reduce((height, row) => height + row.height, 0)
   const ctx = canvas.getContext('2d')
   if (!ctx) throw new Error('Canvas unavailable')
   const css = getComputedStyle(document.documentElement)
@@ -45,9 +49,8 @@ export async function renderRunImage(run: RunView): Promise<File> {
   font(32)
   ctx.fillStyle = muted
   ctx.fillText('× 2', 1000, y)
-  for (const row of run.reviews) {
-    y += 100
-    const cells = reviewDisplayCells(row)
+  for (const { review: row, cells, height } of rows) {
+    y += height
     for (const cell of cells) {
       const x = right - cell.place * col
       ctx.fillStyle = colors[cell.grade]
@@ -64,11 +67,6 @@ export async function renderRunImage(run: RunView): Promise<File> {
       font(32)
       ctx.fillStyle = muted
       ctx.fillText(`${op.type === 'mul' ? '×' : '÷'} ${op.n}`, 1000, y)
-    }
-    if (row.mode === 'normal' && row.entered !== row.expected) {
-      font(22)
-      ctx.fillStyle = colors.right
-      ctx.fillText(`→ ${row.expected}`, right, y + 26)
     }
   }
   y = canvas.height - 98

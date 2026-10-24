@@ -35,16 +35,13 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
           review.step < 15 ? `${steps[review.step + 1].type === 'mul' ? '×' : '÷'} ${steps[review.step + 1].n}` : ''
         }}</span>
       </div>
-      <div v-if="review.mode === 'normal' && review.entered !== review.expected" class="correction-value right">
-        → {{ review.expected }}
-      </div>
     </div>
   </div>
 </template>
 <style scoped>
 .diff-tower {
   display: grid;
-  gap: 12px;
+  gap: 6px;
   font-variant-numeric: tabular-nums;
   padding: 8px 2px;
   overflow-x: auto;
@@ -78,20 +75,22 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
   padding-top: 0;
 }
 .has-helpers .diff-digits {
-  padding-top: 13px;
+  padding-top: 8px;
 }
 .diff-cell {
   position: relative;
   min-width: 0.72em;
   text-align: center;
   font-size: 22px;
+  line-height: 26px;
   font-weight: 720;
 }
 .diff-helper {
   position: absolute;
-  top: -14px;
+  top: -11px;
   left: -5px;
   font-size: 11px;
+  line-height: 12px;
   font-weight: 600;
 }
 .right {
@@ -102,12 +101,6 @@ const rows = computed(() => props.reviews.map((review) => ({ review, cells: revi
 }
 .consequence {
   color: var(--warning);
-}
-.correction-value {
-  text-align: right;
-  font-size: 12px;
-  margin-right: 50px;
-  margin-top: 7px;
 }
 .diff-step {
   scroll-margin-top: 20px;

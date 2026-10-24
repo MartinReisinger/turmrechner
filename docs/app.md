@@ -58,7 +58,9 @@ The settings summary lists each option once with all its distinct values. Detail
 
 Review colors identify correct input (green), a genuine local mistake (red), and a correctly computed consequence
 of an earlier mistake (yellow). Retained mistakes and blocked Easy inputs are marked red directly in the result row.
-Earlier attempts remain stored but are not displayed as extra digits. Native sharing generates a local PNG
+Earlier attempts remain stored but are not displayed as extra digits. The review and shared image show one result row
+per operation, without intermediate correction lines. Carries sit close above the digits with compact row spacing.
+Native sharing generates a local PNG
 of the entire reviewed tower and includes https://turmrechner.martindev.at/ in the image and share payload.
 The share text uses the selected app language, describes the starting number and duration, and includes the link once.
 There is no upload endpoint or additional download/copy interface. Sharing images requires native file sharing
