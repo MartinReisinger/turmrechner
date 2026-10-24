@@ -8,6 +8,11 @@ The visual design is heavily inspired by Trade Republic's clean monochrome aesth
 
 [Open Turmrechner](https://turmrechner.com/)
 
+<p align="center">
+  <img src="docs/onboarding-infos.png" alt="Turmrechner onboarding and app features" height="420" />
+  <img src="docs/tower-arithmetic-task.png" alt="A tower arithmetic task in Turmrechner" height="420" />
+</p>
+
 ## Get started
 
 Open the app, choose your preferences, and enter a starting number or generate one at random.
@@ -68,8 +73,8 @@ Open http://127.0.0.1:3000. To run lint, tests, TypeScript checks, and the produ
 pnpm verify
 ```
 
-See the [development guide](docs/development.md) for code organization, offline previews, and icon generation.
-The [deployment guide](docs/deployment.md) describes the GitHub Actions and Docker setup.
+See the [development guide](docs/development.md) for code organization, offline previews, icon generation,
+and GitHub Actions deployment.
 
 ## Help and contributions
 
