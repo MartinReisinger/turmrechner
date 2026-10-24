@@ -58,7 +58,7 @@ async function keepActiveVisible() {
 function schedule(index: number) {
   if (closed) return
   if (index >= cells.value.length) {
-    timer = setTimeout(() => emit('done'), reduced ? 0 : 180)
+    timer = setTimeout(() => emit('done'), reduced ? 0 : 240)
     return
   }
   const visualIndex = steps[props.review.step].type === 'div' ? index : cells.value.length - index - 1
@@ -70,7 +70,7 @@ function schedule(index: number) {
   checked.value = index
   void keepActiveVisible()
   if (!bad(visualIndex)) {
-    timer = setTimeout(() => schedule(index + 1), reduced ? 0 : 28)
+    timer = setTimeout(() => schedule(index + 1), reduced ? 0 : 45)
     return
   }
   activeError.value = visualIndex
@@ -82,10 +82,10 @@ function schedule(index: number) {
           activeError.value = null
           schedule(index + 1)
         },
-        reduced ? 0 : 420,
+        reduced ? 0 : 600,
       )
     },
-    reduced ? 0 : 180,
+    reduced ? 0 : 240,
   )
 }
 
@@ -153,7 +153,7 @@ onScopeDispose(() => {
 .number-wheel {
   display: grid;
   grid-template-rows: 45px 45px;
-  transition: transform 0.4s cubic-bezier(0.2, 0.75, 0.2, 1);
+  transition: transform 0.55s cubic-bezier(0.2, 0.75, 0.2, 1);
 }
 .number-wheel > span {
   display: grid;
