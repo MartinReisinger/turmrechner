@@ -51,6 +51,7 @@ Review colors identify correct input (green), a genuine local mistake (red), and
 of an earlier mistake (yellow). Positions with failed inputs are marked red directly in the result row.
 Earlier attempts remain stored but are not displayed as extra digits. Native sharing generates a local PNG
 of the entire reviewed tower and includes https://turmrechner.martindev.at/ in the image and share payload.
+The share text uses the selected app language, describes the starting number and duration, and includes the link once.
 There is no upload endpoint or additional download/copy interface. Sharing images requires native file sharing
 support; the user selects the destination in the device share sheet.
 

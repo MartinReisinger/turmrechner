@@ -90,10 +90,14 @@ export async function renderRunImage(run: RunView): Promise<File> {
 }
 export async function shareRun(run: RunView, file: File): Promise<void> {
   if (!navigator.share || !navigator.canShare?.({ files: [file] })) throw new Error('Sharing unavailable')
+  const seconds = Math.floor(Math.max(0, run.durationMs) / 1000)
+  const message = t('shareResult')
+    .replace('{seed}', run.seed)
+    .replace('{minutes}', String(Math.floor(seconds / 60)))
+    .replace('{seconds}', String(seconds % 60))
   await navigator.share({
     files: [file],
     title: t('title'),
-    text: `${run.seed} · ${formatDuration(run.durationMs, true)}\n${appUrl}`,
-    url: appUrl,
+    text: `${message}\n\n${appUrl}`,
   })
 }
