@@ -76,7 +76,7 @@ export const de = {
   system: 'System',
   light: 'Hell',
   dark: 'Dunkel',
-  variantsTitle: 'Deine Farben.',
+  variantsTitle: 'Welche Themes?',
   white: 'Weiß',
   warm: 'Monokai',
   charcoal: 'Dunkelgrau',
