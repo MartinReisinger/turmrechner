@@ -28,18 +28,23 @@
   --selection: #ad3268;
   --cursor: #66831e;
 }
-[data-theme='charcoal'] {
+[data-theme='monokai'] {
   color-scheme: dark;
-  --bg: #090a0c;
-  --text: #f4f5f6;
-  --muted: #969da6;
-  --soft: #b9bec4;
-  --key: #15181c;
-  --key-down: #20242a;
-  --good: #83dc8d;
-  --bad: #ff7b73;
-  --accent: #eef0f2;
-  --on-accent: #0b0c0e;
+  --bg: #272822;
+  --text: #f8f8f2;
+  --muted: #b3b3a2;
+  --soft: #cfcfc2;
+  --key: #35362f;
+  --key-down: #46483e;
+  --good: #a6e22e;
+  --bad: #f92672;
+  --warning: #fd971f;
+  --accent: #f92672;
+  --on-accent: #ffffff;
+  --operator: #66d9ef;
+  --helper: #ae81ff;
+  --selection: #f92672;
+  --cursor: #a6e22e;
 }
 [data-theme='oled'] {
   color-scheme: dark;
@@ -56,7 +61,6 @@
 }
 
 [data-theme='white'],
-[data-theme='charcoal'],
 [data-theme='oled'] {
   --operator: var(--soft);
   --helper: var(--soft);
@@ -70,7 +74,6 @@
 [data-theme='warm'] {
   --warning: #936900;
 }
-[data-theme='charcoal'],
 [data-theme='oled'] {
   --warning: #e8ba54;
 }

@@ -1,5 +1,7 @@
 .game {
   min-height: 0;
+  min-width: 0;
+  overflow: hidden;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 8px;
@@ -54,6 +56,8 @@
 }
 .game-screen {
   min-height: 0;
+  min-width: 0;
+  overflow: hidden;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 5px;
@@ -87,6 +91,7 @@
 }
 .tower-container {
   min-height: 0;
+  min-width: 0;
   display: grid;
 }
 .prompt {

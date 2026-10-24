@@ -34,7 +34,7 @@ export function parseSettings(value: unknown): RunSettings | null {
     !['system', 'de', 'en'].includes(String(value.language)) ||
     !['system', 'light', 'dark'].includes(String(value.theme)) ||
     !['white', 'warm'].includes(String(value.light)) ||
-    !['charcoal', 'oled'].includes(String(value.dark))
+    !['charcoal', 'oled', 'monokai'].includes(String(value.dark))
   )
     return null
   return snapshotSettings(parsePreferences({ ...value, version: 2 }))

@@ -50,7 +50,7 @@ const sample = samples[samples.length - 2]
       <p class="group-label">{{ t('dark') }}</p>
       <div class="choices">
         <button
-          v-for="variant in ['charcoal', 'oled'] as const"
+          v-for="variant in ['oled', 'monokai'] as const"
           :key="variant"
           class="choice swatch"
           :data-theme="variant"

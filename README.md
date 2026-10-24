@@ -32,8 +32,10 @@ The first launch introduces offline use, local data storage, and customization. 
 how to add the app to the Home Screen. The guide is skipped when launched in standalone mode or on other devices.
 Users choose calculation previews, manual or mental carry handling, haptics, the optional timer,
 light/dark/system mode, both color variants, and finally Easy/Normal/Hard. Easy and a hidden timer are defaults. Preview and carry choices
-have no defaults. System mode, white, charcoal, and enabled haptics are preselected.
+have no defaults. System mode, white, black, and enabled haptics are preselected.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.
+Dark variants are Black (left, default) and Monokai (right). Dark Monokai uses a `#272822` background
+with pink, cyan, purple, and green accents. Saved Charcoal choices migrate to Black.
 Color samples reflect the selected assistance options and show an unfinished digit with its cursor.
 
 “Show” displays carries and remainders and requires entering them, including zero.
@@ -43,6 +45,8 @@ Switching modes during a game preserves the result already entered and resolves 
 The settings icon opens every preference. Starting a new game keeps preferences.
 “Reset everything” clears only this app's saved game/preferences/history and restarts onboarding after a native confirmation prompt.
 Settings scroll without a visible scrollbar. The installation guide is part of onboarding only.
+The app frame and keypad stay fixed while solving; long rows scroll inside the tower.
+Onboarding, settings, and history scroll within the app only when their content exceeds the available height.
 Language choices are Deutsch, English, and System (default). System follows the first supported device language,
 with English as the fallback. Explicit language changes apply immediately to the entire interface.
 All text uses `ui-rounded`, with `SF Pro Rounded` and system fallbacks. All UI icons use Lucide.

@@ -12,7 +12,8 @@
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  overscroll-behavior-x: contain;
+  overscroll-behavior: none;
+  touch-action: pan-x pinch-zoom;
 }
 .number-scroller::-webkit-scrollbar {
   display: none;

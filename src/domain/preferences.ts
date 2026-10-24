@@ -4,7 +4,7 @@ export type Difficulty = 'easy' | 'normal' | 'hard'
 export const difficultyRank = { easy: 0, normal: 1, hard: 2 }
 export type ThemeMode = 'system' | 'light' | 'dark'
 export type LightTheme = 'white' | 'warm'
-export type DarkTheme = 'charcoal' | 'oled'
+export type DarkTheme = 'oled' | 'monokai'
 export interface Preferences {
   version: 3
   difficulty: Difficulty
@@ -30,7 +30,7 @@ export function defaultPreferences(): Preferences {
     haptics: true,
     theme: 'system',
     light: 'white',
-    dark: 'charcoal',
+    dark: 'oled',
     onboardingStep: 0,
     onboarded: false,
   }
@@ -61,7 +61,7 @@ export function parsePreferences(value: unknown): Preferences {
     haptics: typeof value.haptics === 'boolean' ? value.haptics : defaults.haptics,
     theme: value.theme === 'light' || value.theme === 'dark' ? value.theme : 'system',
     light: value.light === 'warm' ? 'warm' : 'white',
-    dark: value.dark === 'oled' ? 'oled' : 'charcoal',
+    dark: value.dark === 'monokai' ? 'monokai' : 'oled',
     onboardingStep,
     onboarded: value.onboarded === true && preview !== null && carries !== null,
   }

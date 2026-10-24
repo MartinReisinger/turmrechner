@@ -14,7 +14,7 @@ export function useTheme(preferences: Ref<Preferences>) {
   })
   watchEffect(() => {
     document.documentElement.dataset.theme = theme.value
-    const color = { white: '#fafafa', warm: '#fdf6e3', charcoal: '#090a0c', oled: '#000000' }[theme.value]
+    const color = { white: '#fafafa', warm: '#fdf6e3', oled: '#000000', monokai: '#272822' }[theme.value]
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color)
   })
 }
