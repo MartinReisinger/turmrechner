@@ -1,6 +1,6 @@
 export const de = {
   offlineShort: 'Offline',
-  offlineShortHint: 'Auch ohne Internet',
+  offlineShortHint: 'Funktioniert auch ohne Internet',
   privateShort: 'Privat',
   privateShortHint: 'Deine Nutzerdaten bleiben auf dem Gerät.',
   cleanShort: 'Anpassbar',
