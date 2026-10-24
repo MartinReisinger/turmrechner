@@ -26,7 +26,7 @@ dialog {
 }
 dialog::backdrop {
   background: color-mix(in srgb, var(--bg) 45%, transparent);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
 }
 h1 {
   font-size: 20px;
