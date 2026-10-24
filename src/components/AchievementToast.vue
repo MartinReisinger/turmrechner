@@ -46,9 +46,13 @@ const label = computed(() =>
   display: grid;
   gap: 10px;
   padding: 14px 16px;
-  border: 1px solid var(--soft);
+  border: 0;
   border-radius: 18px;
   background: var(--key);
+  background: color-mix(in srgb, var(--key) 82%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 14%);
   color: var(--text);
   text-align: left;
 }
