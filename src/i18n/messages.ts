@@ -6,7 +6,7 @@ export const de = {
   mode: 'Modus',
   modeTitle: 'Wie schwer?',
   easyHint: 'Falsche Eingaben werden blockiert.',
-  normalHint: 'Nach jeder Zeile werden Fehler korrigiert.',
+  normalHint: 'Nach jeder vollen Zeile werden Fehler korrigiert.',
   hardHint: 'Fehler bleiben stehen. Folgefehler sind möglich.',
   timer: 'Timer',
   timerTitle: 'Timer anzeigen?',
