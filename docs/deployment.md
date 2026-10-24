@@ -4,7 +4,8 @@
 
 ## Production
 
-- URL: https://turmrechner.martindev.at
+- URL: https://turmrechner.com
+- Previous domain: `turmrechner.martindev.at` permanently redirects to the new domain, preserving paths and queries.
 - Repository: https://git.martindev.at/MartinReisinger/turmrechner
 - Flow: Forgejo Actions → Docker Compose → host Caddy.
 - Host directory: `/home/deploy/turmrechner`.
@@ -34,3 +35,6 @@ curl --fail http://127.0.0.1:3016/ --output /dev/null
 To roll back, set `DEPLOY_COMMIT` in the host `.env` to an available image commit, then run
 `sudo docker compose up -d --wait`. Caddy configuration lives in `/etc/caddy/Caddyfile`.
 Clients with a service worker may retain cached code until they close every app tab or accept an available update.
+
+Browser storage and installed web apps belong to their origin. Saved runs, achievements, and preferences
+do not transfer from the previous domain. Install the app again from the new domain if needed.

@@ -6,7 +6,7 @@ import { t } from '../i18n'
   <div class="install-demo" aria-hidden="true">
     <div class="mock-browser">
       <div class="mock-content"><img src="/favicon.svg" alt="" width="58" height="58" /></div>
-      <div class="mock-toolbar"><span>turmrechner.martindev.at</span><AppIcon name="share" /></div>
+      <div class="mock-toolbar"><span>turmrechner.com</span><AppIcon name="share" /></div>
       <div class="mock-sheet">
         <div class="sheet-handle"></div>
         <div class="mock-row">

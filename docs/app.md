@@ -52,7 +52,9 @@ hidden. Only active solving counts: settings, history, achievements, background,
 pause the clock. Finished runs are archived once; deleting a run does not cause it to reappear after reopening.
 Best times are for error-free runs, grouped by Easy/Normal/Hard or mixed modes.
 
-The game header contains trophy, history, and settings buttons. Tap a row for details; swipe left to delete, with undo available briefly.
+The game header contains trophy, history, and settings buttons. Tap a row for details; swipe left to delete.
+The deletion message and undo action stay at the bottom of the viewport for seven seconds, independent of list length
+or scroll position. Extra bottom space keeps the last entry reachable above the message.
 Rows show seed/time above date/error count. Regional dates use 24-hour time; Austria uses day.month.year.
 The settings summary lists each option once with all its distinct values. Detailed change timestamps remain stored.
 
@@ -61,7 +63,7 @@ of an earlier mistake (yellow). Retained mistakes and blocked Easy inputs are ma
 Earlier attempts remain stored but are not displayed as extra digits. The review and shared image show one result row
 per operation, without intermediate correction lines. Carries sit close above the digits with compact row spacing.
 Native sharing generates a local PNG
-of the entire reviewed tower and includes https://turmrechner.martindev.at/ in the image and share payload.
+of the entire reviewed tower and includes https://turmrechner.com/ in the image and share payload.
 The share text uses the selected app language, describes the starting number and duration, and includes the link once.
 There is no upload endpoint or additional download/copy interface. Sharing images requires native file sharing
 support; the user selects the destination in the device share sheet.

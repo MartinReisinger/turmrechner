@@ -3,7 +3,7 @@ import { reviewDisplayCells } from '../domain/review'
 import { steps } from '../domain/game'
 import { t } from '../i18n'
 import { formatLocalDate } from './date-format'
-export const appUrl = 'https://turmrechner.martindev.at/'
+export const appUrl = 'https://turmrechner.com/'
 export async function renderRunImage(run: RunView): Promise<File> {
   const rows = run.reviews.map((review) => {
     const cells = reviewDisplayCells(review)

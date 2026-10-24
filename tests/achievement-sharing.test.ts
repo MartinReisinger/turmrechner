@@ -31,7 +31,7 @@ it('shares the requested collection caption, unlocked names, image, and one app 
   expect(navigator.share).toHaveBeenCalledWith({
     files: [file],
     title: 'Tower arithmetic',
-    text: 'Look at what I achieved: 3 of 9. Try it: https://turmrechner.martindev.at/\nIt all adds up · Aesthetic addict · Eraser rookie',
+    text: 'Look at what I achieved: 3 of 9. Try it: https://turmrechner.com/\nIt all adds up · Aesthetic addict · Eraser rookie',
   })
 })
 it('localizes captions and keeps locked achievements out of the shared text', () => {
