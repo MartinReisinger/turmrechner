@@ -20,6 +20,7 @@
 }
 * {
   box-sizing: border-box;
+  touch-action: pan-x pan-y;
   -webkit-tap-highlight-color: transparent;
 }
 html,
@@ -49,7 +50,6 @@ button {
   color: inherit;
   background: none;
   cursor: pointer;
-  touch-action: manipulation;
 }
 button:disabled {
   opacity: 0.3;

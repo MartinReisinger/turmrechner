@@ -13,7 +13,7 @@
   overflow-y: hidden;
   scrollbar-width: none;
   overscroll-behavior: none;
-  touch-action: pan-x pinch-zoom;
+  touch-action: pan-x;
 }
 .number-scroller::-webkit-scrollbar {
   display: none;
