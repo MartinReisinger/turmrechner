@@ -1,4 +1,7 @@
+import { deAchievements, enAchievements } from './achievements'
+
 export const de = {
+  ...deAchievements,
   easy: 'Easy',
   normal: 'Normal',
   hard: 'Hard',
@@ -24,7 +27,8 @@ export const de = {
   corrected: 'Korrekt',
   entered: 'Eingegeben',
   shareRun: 'Teilen',
-  shareResult: 'Schau, ich habe einen Turm mit {seed} in {minutes} min und {seconds} s gerechnet. Probier es hier: {link}.',
+  shareResult:
+    'Schau, ich habe einen Turm mit {seed} in {minutes} min und {seconds} s gerechnet. Probier es hier: {link}.',
   shareFailed: 'Teilen ist gerade nicht möglich.',
   shareUnavailable: 'Teilen wird auf diesem Gerät nicht unterstützt.',
   undo: 'Rückgängig',
@@ -46,7 +50,7 @@ export const de = {
   cleanShortHint: 'Deine Hilfen. Deine Farben.',
   language: 'Sprache',
   clearAll: 'Alles zurücksetzen',
-  confirmReset: 'Alles zurücksetzen? Spielstand, Verlauf und Einstellungen auf diesem Gerät werden gelöscht.',
+  confirmReset: 'Alles zurücksetzen? Spielstand, Verlauf, Erfolge und Einstellungen auf diesem Gerät werden gelöscht.',
   title: 'Turmrechnen',
   subtitle: 'wie auf Papier',
   deviceSubtitle: 'auf diesem Gerät',
@@ -113,6 +117,7 @@ export const de = {
 }
 export type MessageKey = keyof typeof de
 export const en: Record<MessageKey, string> = {
+  ...enAchievements,
   easy: 'Easy',
   normal: 'Normal',
   hard: 'Hard',
@@ -138,7 +143,8 @@ export const en: Record<MessageKey, string> = {
   corrected: 'Correct',
   entered: 'Entered',
   shareRun: 'Share',
-  shareResult: 'Look, I completed an arithmetic tower starting with {seed} in {minutes} min and {seconds} s. Try it here: {link}.',
+  shareResult:
+    'Look, I completed an arithmetic tower starting with {seed} in {minutes} min and {seconds} s. Try it here: {link}.',
   shareFailed: 'Unable to share right now.',
   shareUnavailable: 'Sharing is not supported on this device.',
   undo: 'Undo',
@@ -160,7 +166,7 @@ export const en: Record<MessageKey, string> = {
   cleanShortHint: 'Your hints. Your colors.',
   language: 'Language',
   clearAll: 'Reset everything',
-  confirmReset: 'Reset everything? The saved game, history and settings on this device will be deleted.',
+  confirmReset: 'Reset everything? The saved game, history, achievements and settings on this device will be deleted.',
   title: 'Tower arithmetic',
   subtitle: 'just like on paper',
   deviceSubtitle: 'on this device',

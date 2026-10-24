@@ -14,13 +14,14 @@ Use the on-screen keypad or your keyboard to solve the tower.
 - Easy blocks incorrect inputs. Normal corrects mistakes after each row. Hard checks the completed tower.
 - Calculation previews, carries and remainders, and the visible timer are optional.
 - Run history stores your starting number, time, mistakes, and settings on your device.
+- Nine achievements celebrate your progress. Open the trophy to see your collection and share unlocked achievements.
 - Native sharing creates an image of your results with a link to the app.
 
 The app works offline after its first complete load. On iPhone, use Safari's **Add to Home Screen**
 to install it. On iPhone and iPad, onboarding includes an installation guide directly after the introduction.
 
 No account is needed. Game data stays in your browser, with no sync between devices.
-Clearing website data also deletes saved runs. See [app behavior and privacy](docs/app.md) for details.
+Clearing website data also deletes saved runs and achievements. See [app behavior and privacy](docs/app.md) for details.
 
 ## Stack
 

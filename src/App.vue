@@ -21,11 +21,15 @@ import GameView from './components/GameView.vue'
 import SettingsView from './components/SettingsView.vue'
 import LegalView from './components/LegalView.vue'
 import ResumeDialog from './components/ResumeDialog.vue'
+import AchievementsView from './components/AchievementsView.vue'
+import AchievementToast from './components/AchievementToast.vue'
+import { achievementsKey, useAchievements } from './composables/useAchievements'
 
 const preferencesKey = 'turmrechner.preferences.v1'
 const preferences = ref(parsePreferences(readStorage(preferencesKey)))
 const preferenceStorageIssue = ref(false)
-const page = ref<'game' | 'settings' | 'history' | 'privacy' | 'imprint'>('game')
+const page = ref<'game' | 'settings' | 'history' | 'achievements' | 'privacy' | 'imprint'>('game')
+const achievementStore = useAchievements()
 const {
   acceptPendingExtra,
   game,
@@ -49,7 +53,7 @@ const {
   canUndo,
   activeMode,
   reviews,
-} = useGameSession()
+} = useGameSession(undefined, undefined, achievementStore.observe)
 const history = useRunHistory()
 const historyId = ref<string | null>(null)
 const visible = ref(!document.hidden)
@@ -59,7 +63,14 @@ const showResume = computed(() => preferences.value.onboarded && needsResume.val
 const canPlay = computed(
   () => preferences.value.onboarded && page.value === 'game' && !showResume.value && !correction.value,
 )
-useTheme(preferences)
+const appliedTheme = useTheme(preferences)
+watch(
+  [appliedTheme, visible],
+  ([theme, isVisible]) => {
+    if (isVisible) achievementStore.observe({ kind: 'theme', theme })
+  },
+  { immediate: true },
+)
 const minimumDifficulty = computed<Difficulty | null>(() => {
   if (game.value.kind !== 'playing' && !correction.value) return null
   const modes: Difficulty[] = [
@@ -101,9 +112,10 @@ function freshGame() {
 }
 function clearEverything() {
   if (!window.confirm(t('confirmReset'))) return
-  const cleared = clearStorage([preferencesKey, sessionKey, historyKey])
+  const cleared = clearStorage([preferencesKey, sessionKey, historyKey, achievementsKey])
   reset(false)
   history.clear()
+  achievementStore.clear()
   preferences.value = defaultPreferences()
   preferenceStorageIssue.value = !cleared
   page.value = 'game'
@@ -148,6 +160,7 @@ watch(
   { immediate: true },
 )
 watch(page, () => {
+  achievementStore.dismiss()
   feedback.value = null
 })
 watch(
@@ -209,6 +222,14 @@ onUnmounted(() => {
         <div class="sub">{{ t(page === 'game' ? 'subtitle' : 'deviceSubtitle') }}</div>
       </div>
       <div class="header-actions">
+        <button
+          v-if="page === 'game'"
+          class="icon-button"
+          :aria-label="t('achievements')"
+          @click="page = 'achievements'"
+        >
+          <AppIcon name="trophy" />
+        </button>
         <button v-if="page === 'game'" class="icon-button" :aria-label="t('history')" @click="openHistory()">
           <AppIcon name="history" />
         </button>
@@ -232,13 +253,16 @@ onUnmounted(() => {
       :preferences="preferences"
       :minimum-difficulty="minimumDifficulty"
       :update-ready="needRefresh"
-      :storage-issue="storageIssue || preferenceStorageIssue || history.storageIssue.value"
+      :storage-issue="
+        storageIssue || preferenceStorageIssue || history.storageIssue.value || achievementStore.storageIssue.value
+      "
       @change="change"
       @reset="freshGame"
       @clear="clearEverything"
       @update="updateServiceWorker(true)"
       @legal="page = $event"
     />
+    <AchievementsView v-else-if="page === 'achievements'" :state="achievementStore.state.value" :theme="appliedTheme" />
     <RunHistoryView
       v-else-if="page === 'history'"
       :runs="history.runs.value"
@@ -271,6 +295,12 @@ onUnmounted(() => {
       @key="canPlay && key($event, preferences.haptics, preferences.carries === true, preferences.difficulty)"
       @start="canPlay && start()"
       @reset="freshGame"
+    />
+    <AchievementToast
+      v-if="preferences.onboarded && !showResume"
+      :ids="achievementStore.announcement.value"
+      :during-tower="page === 'game' && (game.kind === 'playing' || !!correction)"
+      @open="page = 'achievements'"
     />
   </div>
   <ResumeDialog v-if="showResume" @continue="needsResume = false" @reset="freshGame" />

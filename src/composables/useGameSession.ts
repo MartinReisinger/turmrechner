@@ -9,9 +9,14 @@ import { readStorage, writeStorage } from '../platform/storage'
 import { errorHaptic } from '../platform/device'
 import { createRunClock } from './run-clock'
 import type { MessageKey } from '../i18n/messages'
+import type { AchievementEvent } from '../domain/achievements'
 
 export const sessionKey = 'turmrechner.session.v1'
-export function useGameSession(now = () => performance.now(), wall = () => Date.now()) {
+export function useGameSession(
+  now = () => performance.now(),
+  wall = () => Date.now(),
+  observe: (event: AchievementEvent) => void = () => {},
+) {
   const restored = loadPlaySession(readStorage(sessionKey))
   const game = shallowRef<Game>(restored.game)
   const round = shallowRef(restored.round)
@@ -53,6 +58,7 @@ export function useGameSession(now = () => performance.now(), wall = () => Date.
       meta: clock.meta.value,
     }
     feedback.value = null
+    if (clock.meta.value) observe({ kind: 'started', runId: clock.meta.value.id })
     persist()
   }
   function dispatch(event: RoundEvent) {
@@ -74,6 +80,8 @@ export function useGameSession(now = () => performance.now(), wall = () => Date.
       mistakes.value++
     }
     if (next.game.kind === 'done') clock.finish()
+    if (event.kind === 'undo') observe({ kind: 'deleted' })
+    if (clock.meta.value) observe({ kind: 'round', runId: clock.meta.value.id, round: next })
     persist()
   }
   function key(value: string, haptics: boolean, showCarries = true, mode = defaultPreferences().difficulty) {
@@ -88,6 +96,7 @@ export function useGameSession(now = () => performance.now(), wall = () => Date.
               ? enterDigit(game.value, Number(value))
               : game.value
       if (next.kind === 'seed') {
+        if (value === 'back' && next.text !== game.value.text) observe({ kind: 'deleted' })
         game.value = next
         session.value = { version: 1, kind: 'seed', text: next.text }
         persist()

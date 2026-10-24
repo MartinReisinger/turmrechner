@@ -17,4 +17,5 @@ export function useTheme(preferences: Ref<Preferences>) {
     const color = { white: '#fafafa', warm: '#fdf6e3', oled: '#000000', monokai: '#272822' }[theme.value]
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color)
   })
+  return theme
 }

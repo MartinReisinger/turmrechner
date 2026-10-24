@@ -1,5 +1,6 @@
 import { isRecord } from '../platform/storage'
 import { replayRound, type RoundEvent } from './round'
+import { isCleanRow } from './review'
 import { parseChanges } from './run-settings'
 import type { RunMeta, RunView, SavedRun } from './run-record'
 export function finiteTime(value: unknown): value is number {
@@ -52,8 +53,7 @@ export function parseMeta(value: unknown): RunMeta | null {
 export function runView(saved: SavedRun): RunView | null {
   const round = replayRound(saved.seed, saved.events)
   if (!round || round.game.kind !== 'done') return null
-  const clean =
-    round.errors === 0 && round.reviews.every((row) => row.entered === row.expected && row.entered === row.reference)
+  const clean = round.errors === 0 && round.reviews.every(isCleanRow)
   return { ...saved, reviews: round.reviews, errors: round.errors, clean }
 }
 export function parseRun(value: unknown): RunView | null {

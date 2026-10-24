@@ -45,7 +45,7 @@ export function advanceRound(round: Round, event: RoundEvent): Round {
         point.entry.grade === 'wrong' && point.state.game.kind === 'playing'
           ? [...round.discarded, { step: point.state.game.step, entry: { ...point.entry, accepted: false } }]
           : round.discarded,
-      errors: round.errors,
+      errors: point.state.errors,
       undo: round.undo.slice(0, -1),
     }
   }

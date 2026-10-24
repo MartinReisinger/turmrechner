@@ -19,6 +19,13 @@ export interface Review {
   reference: string
   entries: Entry[]
 }
+export function isCleanRow(review: Review): boolean {
+  return (
+    review.entered === review.expected &&
+    review.entered === review.reference &&
+    !review.entries.some((entry) => entry.grade !== 'right' && (entry.accepted || review.mode === 'easy'))
+  )
+}
 export function calculate(value: string, step: number): string {
   const op = steps[step]
   return (op.type === 'mul' ? BigInt(value) * BigInt(op.n) : BigInt(value) / BigInt(op.n)).toString()
@@ -96,7 +103,11 @@ export function reviewCells(review: Review): ReviewCell[] {
   })
 }
 export function reviewDisplayCells(review: Review): ReviewCell[] {
-  const mistakes = new Set(review.entries.filter((entry) => entry.grade === 'wrong').map((entry) => entry.place))
+  const mistakes = new Set(
+    review.entries
+      .filter((entry) => entry.grade === 'wrong' && (entry.accepted || review.mode === 'easy'))
+      .map((entry) => entry.place),
+  )
   return reviewCells(review).map((cell) => ({
     ...cell,
     grade: mistakes.has(cell.place) ? 'wrong' : cell.grade,

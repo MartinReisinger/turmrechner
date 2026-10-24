@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { advanceRound, replayRound, startRound, type Round, type RoundEvent } from '../src/domain/round'
 import { expected } from '../src/domain/game'
-import { reviewCells } from '../src/domain/review'
+import { reviewCells, reviewDisplayCells, isCleanRow } from '../src/domain/review'
 import type { Difficulty } from '../src/domain/preferences'
 function input(round: Round, digit: number, mode: Difficulty = 'hard', carries = false) {
   return advanceRound(round, { kind: 'input', digit, mode, carries })
@@ -54,15 +54,17 @@ describe('three verification modes', () => {
     expect(round.game).toBe(game)
     expect(round.mode).toBe('easy')
   })
-  it('undoes the actual entered digit and its automatic carry, preserving failed attempts', () => {
-    let round = input(startRound('25'), 9, 'hard')
+  it.each(['normal', 'hard'] as const)('removes an undone %s error but preserves replay evidence', (mode) => {
+    let round = input(startRound('25'), 9, mode)
     round = advanceRound(round, { kind: 'undo' })
     expect(round.game.kind === 'playing' && round.game.task.index).toBe(1)
     expect(round.game.kind === 'playing' && round.game.task.result).toEqual(['', ''])
-    round = input(input(round, 0), 5)
+    round = input(input(round, 0, mode), 5, mode)
     expect(round.game.kind === 'playing' && round.game.current).toBe('50')
-    expect(round.errors).toBe(1)
+    expect(round.errors).toBe(0)
     expect(reviewCells(round.reviews[0]).at(-1)?.attempts).toEqual([9])
+    expect(reviewDisplayCells(round.reviews[0]).every((cell) => cell.grade === 'right')).toBe(true)
+    expect(isCleanRow(round.reviews[0])).toBe(true)
   })
   it.each(['easy', 'normal', 'hard'] as const)('completes a correct full tower in %s', (mode) => {
     let round = startRound('528')
@@ -83,4 +85,29 @@ describe('three verification modes', () => {
     expect(round.reviews).toHaveLength(16)
     expect(replayRound('528', events)?.reviews).toEqual(round.reviews)
   })
+})
+
+it('rejects blocked Easy errors and wrong helper values as clean rows', () => {
+  let round = input(startRound('25'), 9, 'easy')
+  round = input(input(round, 0, 'easy'), 5, 'easy')
+  expect(isCleanRow(round.reviews[0])).toBe(false)
+  expect(reviewDisplayCells(round.reviews[0]).at(-1)?.grade).toBe('wrong')
+  const clean = input(input(startRound('25'), 0, 'normal'), 5, 'normal').reviews[0]
+  expect(
+    isCleanRow({
+      ...clean,
+      entries: [
+        ...clean.entries,
+        {
+          value: 9,
+          expected: 0,
+          reference: 0,
+          phase: 'extra',
+          place: 0,
+          accepted: true,
+          grade: 'wrong',
+        },
+      ],
+    }),
+  ).toBe(false)
 })

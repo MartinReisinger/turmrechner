@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import {
+  BadgeCheck,
+  Flame,
+  Rocket,
+  Sparkles,
+  Medal,
+  Crown,
+  SwatchBook,
+  Eraser,
   History,
   Timer,
   Trash2,
@@ -26,6 +34,14 @@ import {
 } from '@lucide/vue'
 withDefaults(defineProps<{ name: keyof typeof icons; size?: number }>(), { size: 22 })
 const icons = {
+  badgeCheck: BadgeCheck,
+  flame: Flame,
+  rocket: Rocket,
+  sparkles: Sparkles,
+  medal: Medal,
+  crown: Crown,
+  swatchBook: SwatchBook,
+  eraser: Eraser,
   history: History,
   timer: Timer,
   trash: Trash2,

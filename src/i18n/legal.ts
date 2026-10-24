@@ -2,7 +2,7 @@ export const legalMessages = {
   de: {
     localTitle: 'Auf deinem Gerät',
     localText:
-      'Spielstände, Zeiten, Fehler und Einstellungen bleiben in deinem Browser. Es gibt kein Konto, keine Synchronisierung und keine Speicherung dieser Daten auf unserem Server. Nach dem ersten vollständigen Laden funktioniert die App offline.',
+      'Spielstände, Zeiten, Fehler, Erfolge und Einstellungen bleiben in deinem Browser. Es gibt kein Konto, keine Synchronisierung und keine Speicherung dieser Daten auf unserem Server. Nach dem ersten vollständigen Laden funktioniert die App offline.',
     deleteText:
       'Du kannst Läufe im Verlauf löschen oder unter Einstellungen alles zurücksetzen. Auch das Löschen der Website-Daten im Browser entfernt deine gespeicherten Daten.',
     websiteTitle: 'Beim Laden der Website',
@@ -28,7 +28,7 @@ export const legalMessages = {
   en: {
     localTitle: 'On your device',
     localText:
-      'Games, times, mistakes, and settings stay in your browser. There are no accounts, no synchronization, and no storage of this data on our server. The app works offline after its first complete load.',
+      'Games, times, mistakes, achievements, and settings stay in your browser. There are no accounts, no synchronization, and no storage of this data on our server. The app works offline after its first complete load.',
     deleteText:
       'Delete individual runs in History or reset everything in Settings. Clearing website data in your browser also removes your saved data.',
     websiteTitle: 'When you load the website',

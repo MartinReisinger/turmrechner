@@ -24,7 +24,7 @@ Switching modes during a game preserves the result already entered and resolves 
 The settings icon opens every preference. Starting a new game keeps preferences.
 Privacy and legal notice links appear at the bottom of settings. Provider details in the legal notice
 are revealed with a plain text control and use the contact information from the Arbeitszeiterfassung project.
-“Reset everything” clears only this app's saved game/preferences/history and restarts onboarding after a native confirmation prompt.
+“Reset everything” clears only this app's saved game/preferences/history/achievements and restarts onboarding after a native confirmation prompt.
 Settings scroll without a visible scrollbar.
 The app frame and keypad stay fixed while solving; long rows scroll inside the tower.
 The frame follows the dynamic viewport height and uses 4 px of bottom padding, including in installed PWAs.
@@ -43,33 +43,60 @@ of each row, and corrects mistakes with a digit-wheel animation, right to left f
 blocking the next input. Hard leaves wrong answers in place and evaluates only after the entire tower.
 During a run, modes can only increase in difficulty; lower mode buttons are disabled. Starting a new game unlocks all modes.
 Mode changes take effect at the next row; other preferences apply immediately and all changes are recorded.
-Undo is available in Normal/Hard. It restores the previous input including any automatic carry, while retaining
-mistake history. Every visible result digit, including leading digits, always requires input.
+Undo is available in Normal/Hard. It restores the previous input including any automatic carry.
+Deleted mistakes remain in the replay log but no longer count as errors, red marks, or exclusions from best times.
+Easy still counts blocked wrong inputs. This evaluation also applies when older saved runs are replayed. Every visible result digit, including leading digits, always requires input.
 
 The optional timer replaces the step counter; the progress bar remains unchanged. Time is recorded even when
-hidden. Only active solving counts: settings, history, background, the resume prompt, and automatic row correction
+hidden. Only active solving counts: settings, history, achievements, background, the resume prompt, and automatic row correction
 pause the clock. Finished runs are archived once; deleting a run does not cause it to reappear after reopening.
 Best times are for error-free runs, grouped by Easy/Normal/Hard or mixed modes.
 
-The history button sits beside settings. Tap a row for details; swipe left to delete, with undo available briefly.
+The game header contains trophy, history, and settings buttons. Tap a row for details; swipe left to delete, with undo available briefly.
 Rows show seed/time above date/error count. Regional dates use 24-hour time; Austria uses day.month.year.
 The settings summary lists each option once with all its distinct values. Detailed change timestamps remain stored.
 
 Review colors identify correct input (green), a genuine local mistake (red), and a correctly computed consequence
-of an earlier mistake (yellow). Positions with failed inputs are marked red directly in the result row.
+of an earlier mistake (yellow). Retained mistakes and blocked Easy inputs are marked red directly in the result row.
 Earlier attempts remain stored but are not displayed as extra digits. Native sharing generates a local PNG
 of the entire reviewed tower and includes https://turmrechner.martindev.at/ in the image and share payload.
 The share text uses the selected app language, describes the starting number and duration, and includes the link once.
 There is no upload endpoint or additional download/copy interface. Sharing images requires native file sharing
 support; the user selects the destination in the device share sheet.
 
+## Achievements
+
+The trophy opens nine achievements, each with its own Lucide icon, playful name, and description in German and English.
+Unlocked achievements appear first with their description and unlock date. Locked descriptions are blurred and hidden
+from screen readers. The list has no visible scrollbar and shows no individual counters or theme checklist.
+The overall count remains visible. The share icon beside the heading exports the whole collection
+as a local PNG with an app link through native file sharing. Collection images hide locked descriptions too.
+The caption includes the unlocked count and names. Devices without native file sharing cannot use this control.
+
+Achievements cover the first clean row, streaks of 5 and 10 clean rows in one tower, the first finished tower,
+the first clean tower, 10 and 50 clean towers, all four applied themes, and the first effective digit deletion.
+Deleted Normal/Hard mistakes are allowed. Blocked Easy mistakes, automatic row correction, wrong retained helpers,
+and consequences of earlier wrong results prevent a clean row. Assistance settings and difficulty impose no extra requirements.
+Hard rows count only after completion, so achievements do not reveal correctness while solving.
+New towers start a new row streak. Reloading or resuming an eligible tower preserves progress without double counting.
+
+An achievement appears for four seconds below the game progress bar or below the header on other pages, including settings.
+Simultaneous unlocks share one card; later unlocks queue. Cards do not take focus or pause solving.
+Tapping a card opens the collection. Changing pages dismisses pending cards. Reduced motion disables transitions.
+Only themes applied globally while the app is visible count. Selecting an inactive theme variant or viewing its preview does not count.
+
+Tracking starts with the update. Existing history and towers already in progress do not receive retrospective achievements.
+The currently applied theme counts from the first visible load. Deleting a saved run preserves achievements.
+“Reset everything” clears achievement progress too.
+
 ## Local storage and privacy
 
-Three browser storage entries persist data only in this browser and origin:
+Four browser storage entries persist data only in this browser and origin:
 
 - `turmrechner.preferences.v1`: version 3 preferences, including mode, timer, themes, and onboarding progress.
 - `turmrechner.session.v1`: a seed draft or version 2 input/undo events, active time, and setting changes.
 - `turmrechner.history.v1`: completed runs with the original seed, time, settings, and replayable answers.
+- `turmrechner.achievements.v1`: unlock dates, applied themes, best row streak, clean tower count, and active run identity.
 
 Existing preferences and version 1 games migrate without deleting progress. Legacy games have no invented time.
 The app replays accepted inputs to restore the exact result digit or carry/remainder input phase.
