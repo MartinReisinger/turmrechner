@@ -25,7 +25,9 @@
 html,
 body,
 #app {
-  height: 100%;
+  /* Size the frame to the visible viewport, including the installed PWA's bottom area. */
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background-color: var(--bg);
 }
@@ -61,10 +63,12 @@ input:focus-visible {
 }
 .app {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto;
+  height: 100vh;
+  height: 100dvh;
   background-color: var(--bg);
   width: min(520px, 100%);
-  margin: auto;
+  margin: 0 auto;
   padding: calc(env(safe-area-inset-top) + 8px) 14px 4px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);

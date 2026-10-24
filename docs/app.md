@@ -27,6 +27,7 @@ are revealed with a plain text control and use the contact information from the 
 “Reset everything” clears only this app's saved game/preferences/history and restarts onboarding after a native confirmation prompt.
 Settings scroll without a visible scrollbar.
 The app frame and keypad stay fixed while solving; long rows scroll inside the tower.
+The frame follows the dynamic viewport height and uses 4 px of bottom padding, including in installed PWAs.
 With carry/remainder display enabled, completed rows retain their helpers in every difficulty mode.
 Normal retains the corrected helper values after its row animation.
 Onboarding, settings, and history scroll within the app only when their content exceeds the available height.
