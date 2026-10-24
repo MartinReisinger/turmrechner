@@ -6,6 +6,23 @@ built with Vue 3, TypeScript, and Vite.
 
 [Open Turmrechner](https://turmrechner.martindev.at/)
 
+## Vue.js Badge Styles
+
+### Flat
+[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
+
+### Flat Square
+[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat-square&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
+
+### For the Badge
+[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
+
+### Plastic
+[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=plastic&logo=vuedotjs&logoColor=4FC08D)](https://vuejs.org/)
+
+### Social
+[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=social&logo=vuedotjs)](https://vuejs.org/)
+
 ## Get started
 
 Open the app, choose your preferences, and enter a starting number or generate one at random.
