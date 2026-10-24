@@ -52,7 +52,7 @@ export const de = {
   next: 'Weiter',
   back: 'Zurück',
   finish: 'Los geht’s',
-  install: 'Zum Home-Bildschirm?',
+  install: 'Als App installieren?',
   share: 'Teilen öffnen',
   shareHint: 'Über das Teilen-Symbol oder das Seitenmenü.',
   addHome: 'Zum Home-Bildschirm',
