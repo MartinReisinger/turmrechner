@@ -58,6 +58,7 @@ describe('preferences', () => {
       ...defaultPreferences(),
       preview: false,
       carries: false,
+      timer: false,
       theme: 'light',
       light: 'warm',
       dark: 'oled',

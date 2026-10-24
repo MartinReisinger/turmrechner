@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '../i18n'
-defineProps<{ value: boolean }>()
+defineProps<{ value: boolean | null }>()
 const emit = defineEmits<{ select: [value: boolean] }>()
 </script>
 <template>

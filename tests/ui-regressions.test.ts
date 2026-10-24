@@ -67,6 +67,7 @@ it('switches all UI text immediately and clears only app data when restarting on
       language: 'en',
       preview: true,
       carries: false,
+      timer: false,
       onboarded: true,
     }),
   )

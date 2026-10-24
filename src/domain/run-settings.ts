@@ -1,8 +1,9 @@
 import { parsePreferences, type Preferences } from './preferences'
 import { isRecord } from '../platform/storage'
-export type RunSettings = Omit<Preferences, 'version' | 'onboardingStep' | 'onboarded' | 'preview' | 'carries'> & {
+export type RunSettings = Omit<Preferences, 'version' | 'onboardingStep' | 'onboarded' | 'preview' | 'carries' | 'timer'> & {
   preview: boolean
   carries: boolean
+  timer: boolean
 }
 export interface SettingsChange {
   atMs: number
@@ -13,7 +14,7 @@ export function snapshotSettings(preferences: Preferences): RunSettings {
   const { difficulty, timer, language, preview, carries, haptics, theme, light, dark } = preferences
   return {
     difficulty,
-    timer,
+    timer: timer === true,
     language,
     preview: preview ?? true,
     carries: carries ?? true,

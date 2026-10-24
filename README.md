@@ -31,8 +31,9 @@ iPhone installation requires HTTPS on a reachable host; a Mac's localhost is not
 The first launch introduces offline use, local data storage, and customization. On iOS, an animated guide explains
 how to add the app to the Home Screen. The guide is skipped when launched in standalone mode or on other devices.
 Users choose calculation previews, manual or mental carry handling, haptics, the optional timer,
-light/dark/system mode, both color variants, and finally Easy/Normal/Hard. Easy and a hidden timer are defaults. Preview and carry choices
-have no defaults. System mode, white, black, and enabled haptics are preselected.
+light/dark/system mode, both color variants, and finally Easy/Normal/Hard. Easy is the default difficulty.
+Preview, carry, and timer choices have no defaults and require an explicit selection to advance.
+System mode, white, black, and enabled haptics are preselected.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.
 Dark variants are Black (left, default) and Monokai (right). Dark Monokai uses a `#272822` background
 with pink, cyan, purple, and green accents. Saved Charcoal choices migrate to Black.

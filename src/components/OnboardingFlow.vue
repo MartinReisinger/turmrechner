@@ -34,7 +34,7 @@ function move(direction: number) {
   if (target === 1 && !canInstall) target += direction
   emit('change', { onboardingStep: Math.max(0, Math.min(8, target)) })
 }
-function select(feature: 'preview' | 'carries', value: boolean) {
+function select(feature: 'preview' | 'carries' | 'timer', value: boolean) {
   emit('change', { [feature]: value })
   move(1)
 }
@@ -90,13 +90,13 @@ watch(step, async () => {
               {{ t('testHaptics') }}
             </TapButton>
           </template>
-          <TimerChoices v-else-if="step === 5" :value="preferences.timer" @select="emit('change', { timer: $event })" />
+          <TimerChoices v-else-if="step === 5" :value="preferences.timer" @select="select('timer', $event)" />
           <ThemeChoices v-else :preferences="preferences" :variants="step === 7" @change="emit('change', $event)" />
         </div>
       </section>
     </Transition>
     <div class="page-actions">
-      <button v-if="step !== 2 && step !== 3" class="primary" @click="step === 8 ? emit('finish') : move(1)">
+      <button v-if="step !== 2 && step !== 3 && step !== 5" class="primary" @click="step === 8 ? emit('finish') : move(1)">
         {{ t(step === 8 ? 'finish' : 'next') }}
       </button>
       <button v-if="step === 1" class="quiet" @click="move(1)">{{ t('noThanks') }}</button>

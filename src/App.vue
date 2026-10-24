@@ -91,6 +91,7 @@ function openHistory(id: string | null = null) {
 function finishOnboarding() {
   if (preferences.value.preview === null) return change({ onboardingStep: 2 })
   if (preferences.value.carries === null) return change({ onboardingStep: 3 })
+  if (preferences.value.timer === null) return change({ onboardingStep: 5 })
   change({ onboarded: true })
 }
 function freshGame() {
