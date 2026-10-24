@@ -23,11 +23,14 @@ export function useTowerScroll(scroller: Ref<HTMLElement | undefined>, getGame: 
     const box = anchor.getBoundingClientRect()
     const delta = box.left + box.width / 2 - bounds.left - bounds.width / 2
     if (game.task.type === 'mul' ? delta < 0 : delta > 0) {
-      element.scrollTo({
-        left: Math.max(0, element.scrollLeft + delta),
-        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
-      })
-      hasScrolled.value = true
+      const left = Math.min(element.scrollWidth - element.clientWidth, Math.max(0, element.scrollLeft + delta))
+      if (Math.abs(left - element.scrollLeft) > 1) {
+        element.scrollTo({
+          left,
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+        })
+        hasScrolled.value = true
+      }
     }
   }
   watch(() => [getGame().step, getGame().task.index, getGame().task.phase], keepVisible)
