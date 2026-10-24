@@ -1,4 +1,21 @@
 import type { Task } from './game'
+import { steps } from './game'
+import type { Review } from './review'
+export function completedRowColumns(value: string, review?: Review): { value: string; extra: string }[] {
+  const helpers = new Map<number, string>()
+  if (review) {
+    const offset = steps[review.step].type === 'div' ? 1 : 0
+    for (const entry of review.entries) {
+      if (!entry.accepted || entry.phase !== 'extra') continue
+      const extra = review.mode === 'normal' ? entry.expected : entry.value
+      helpers.set(entry.place - offset, extra ? String(extra) : '')
+    }
+  }
+  return [...value].map((digit, index) => ({
+    value: digit,
+    extra: helpers.get(value.length - index - 1) ?? '',
+  }))
+}
 export interface Column {
   value: string
   extra: string

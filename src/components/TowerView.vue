@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, onScopeDispose, ref, watch } from 'vue'
 import type { Game } from '../domain/game'
-import { taskColumns } from '../domain/tower'
+import { completedRowColumns, taskColumns } from '../domain/tower'
+import type { Review } from '../domain/review'
 import { useTowerScroll } from '../composables/useTowerScroll'
 const props = defineProps<{
   game: Extract<Game, { kind: 'playing' }>
@@ -9,6 +10,7 @@ const props = defineProps<{
   mistakes: number
   checking?: boolean
   pulseStep?: number | null
+  reviews?: Review[]
 }>()
 const scroller = ref<HTMLElement>()
 const invalid = ref(false)
@@ -19,7 +21,14 @@ const hasScrolled = useTowerScroll(
   () => props.game,
   () => !props.checking,
 )
-const rows = computed(() => props.game.rows.slice(-4))
+const rows = computed(() => {
+  const visible = props.game.rows.slice(-4)
+  const start = props.game.rows.length - visible.length
+  return visible.map((row, index) => ({
+    ...row,
+    columns: completedRowColumns(row.value, props.reviews?.find((review) => review.step === start + index - 1)),
+  }))
+})
 const pulsing = ref(false)
 let pulseTimer: ReturnType<typeof setTimeout> | undefined
 onScopeDispose(() => clearTimeout(pulseTimer))
@@ -78,7 +87,10 @@ watch(
           class="tower-row"
           :class="{ muted: i < rows.length - 1, 'verified-row': pulsing && i === rows.length - 1 }"
         >
-          <span v-for="(digit, index) in row.value" :key="index" class="digit-col">{{ digit }}</span>
+          <span v-for="(column, index) in row.columns" :key="index" class="digit-col">
+            <span v-if="showCarries && column.extra" class="carry">{{ column.extra }}</span>
+            <span>{{ column.value }}</span>
+          </span>
         </div>
         <div class="tower-row result-row">
           <slot name="result">

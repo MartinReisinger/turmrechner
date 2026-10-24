@@ -27,6 +27,8 @@ are revealed with a plain text control and use the contact information from the 
 “Reset everything” clears only this app's saved game/preferences/history and restarts onboarding after a native confirmation prompt.
 Settings scroll without a visible scrollbar.
 The app frame and keypad stay fixed while solving; long rows scroll inside the tower.
+With carry/remainder display enabled, completed rows retain their helpers in every difficulty mode.
+Normal retains the corrected helper values after its row animation.
 Onboarding, settings, and history scroll within the app only when their content exceeds the available height.
 Language choices are Deutsch, English, and System (default). System follows the first supported device language,
 with English as the fallback. Explicit language changes apply immediately to the entire interface.

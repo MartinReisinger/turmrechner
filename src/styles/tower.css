@@ -40,6 +40,9 @@
   min-height: 38px;
   width: max-content;
 }
+.number-canvas:has(> .tower-row:first-child .carry) {
+  padding-top: 14px;
+}
 .digit-col,
 .result-cell {
   width: 37px;

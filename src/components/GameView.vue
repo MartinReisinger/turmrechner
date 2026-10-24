@@ -92,6 +92,7 @@ const prompt = computed(() => {
           :mistakes="mistakes"
           :checking="!!correction"
           :pulse-step="pulseStep"
+          :reviews="reviews"
         >
           <template v-if="correction" #result
             ><RowCheck
