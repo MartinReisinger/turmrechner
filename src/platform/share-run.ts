@@ -95,9 +95,10 @@ export async function shareRun(run: RunView, file: File): Promise<void> {
     .replace('{seed}', run.seed)
     .replace('{minutes}', String(Math.floor(seconds / 60)))
     .replace('{seconds}', String(seconds % 60))
+    .replace('{link}', appUrl)
   await navigator.share({
     files: [file],
     title: t('title'),
-    text: `${message}\n\n${appUrl}`,
+    text: message,
   })
 }
