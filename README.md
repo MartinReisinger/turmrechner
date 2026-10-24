@@ -6,7 +6,7 @@ It stores games locally and works offline after its first complete load.
 
 The visual design is heavily inspired by Trade Republic's clean monochrome aesthetic.
 
-[Open Turmrechner](https://turmrechner.com/)
+[Open Turmrechner](https://turmrechner.com/?ref=github)
 
 <p align="center">
   <img src="docs/onboarding-infos.png" alt="Turmrechner onboarding and app features" height="420" />
