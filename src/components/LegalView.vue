@@ -22,6 +22,14 @@ const contactEmail = window.appConfig?.contactEmail || import.meta.env.VITE_CONT
         <p>{{ copy.websiteText }}</p>
       </section>
       <section>
+        <h2>{{ copy.analyticsTitle }}</h2>
+        <p>{{ copy.analyticsText }}</p>
+        <p>{{ copy.analyticsDetails }}</p>
+        <a class="text-link" href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener noreferrer">
+          goatcounter.com/help/privacy
+        </a>
+      </section>
+      <section>
         <h2>{{ copy.sharingTitle }}</h2>
         <p>{{ copy.sharingText }}</p>
       </section>
