@@ -9,8 +9,9 @@ On iPhone and iPad, the installation guide
 comes immediately after the introduction, unless the app is already installed. Other devices skip this page.
 The next pages ask for light/dark/system mode
 and both theme variants, followed by timer, calculation preview, carry handling, haptics, and difficulty.
-No onboarding option is preselected. Every page has a Next button. Choice pages require an explicit selection
-before Next becomes available; the theme page requires both a light and a dark variant.
+System appearance with White and Black theme variants is preselected. Users can keep these defaults
+or change them during onboarding. Every page has a Next button. The remaining choice pages require
+an explicit selection before Next becomes available.
 Next on the difficulty page finishes onboarding. Back remains available on every choice page.
 Existing completed onboarding and saved preferences are preserved.
 The warm Monokai variant uses `#FDF6E3` paper colors with magenta, petrol, purple, and olive accents.

@@ -42,8 +42,6 @@ export function defaultPreferences(): Preferences {
   }
 }
 export const onboardingRequirements: [number, OnboardingOption[]][] = [
-  [6, ['theme']],
-  [7, ['light', 'dark']],
   [5, ['timer']],
   [2, ['preview']],
   [3, ['carries']],

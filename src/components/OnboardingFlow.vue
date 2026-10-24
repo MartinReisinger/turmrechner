@@ -103,7 +103,6 @@ watch(step, async () => {
           <ThemeChoices
             v-else
             :preferences="preferences"
-            :choices="preferences.onboardingChoices"
             :variants="step === 7"
             @change="choose($event)"
           />
