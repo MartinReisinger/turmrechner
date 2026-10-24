@@ -28,6 +28,9 @@ const activeError = ref<number | null>(null)
 let timer: ReturnType<typeof setTimeout> | undefined
 let closed = false
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+function rank(index: number) {
+  return steps[props.review.step].type === 'div' ? index : cells.value.length - index - 1
+}
 function target(place: number) {
   return props.review.expected.at(-place - 1) ?? ''
 }
@@ -58,7 +61,7 @@ function schedule(index: number) {
     timer = setTimeout(() => emit('done'), reduced ? 0 : 180)
     return
   }
-  const visualIndex = cells.value.length - index - 1
+  const visualIndex = steps[props.review.step].type === 'div' ? index : cells.value.length - index - 1
   const cell = cells.value[visualIndex]
   if (!cell.value && !target(cell.place) && !cell.helper) {
     schedule(index + 1)
@@ -111,18 +114,18 @@ onScopeDispose(() => {
       :key="cell.place"
       class="check-cell"
       :data-anchor="cell.place === 0"
-      :data-check-active="checked === cells.length - index - 1"
+      :data-check-active="checked === rank(index)"
       :class="{
-        right: checked >= cells.length - index - 1 && !bad(index),
-        wrong: activeError === index && swapped < cells.length - index - 1,
-        fixed: swapped >= cells.length - index - 1,
+        right: checked >= rank(index) && !bad(index),
+        wrong: activeError === index && swapped < rank(index),
+        fixed: swapped >= rank(index),
       }"
     >
       <span v-if="carries && cell.helper" class="check-helper">{{
-        swapped >= cells.length - index - 1 ? cell.helper.expected : cell.helper.value
+        swapped >= rank(index) ? cell.helper.expected : cell.helper.value
       }}</span>
       <div class="number-window">
-        <div class="number-wheel" :class="{ roll: changed(index) && swapped >= cells.length - index - 1 }">
+        <div class="number-wheel" :class="{ roll: changed(index) && swapped >= rank(index) }">
           <span>{{ cell.value }}</span
           ><span>{{ target(cell.place) }}</span>
         </div>
