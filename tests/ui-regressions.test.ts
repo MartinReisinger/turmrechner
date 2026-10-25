@@ -8,7 +8,7 @@ import ArithmeticDemo from '../src/components/ArithmeticDemo.vue'
 import ThemeChoices from '../src/components/ThemeChoices.vue'
 import { demoFrames } from '../src/domain/demo'
 import { defaultPreferences, onboardingOptions } from '../src/domain/preferences'
-import { enterDigit, startGame } from '../src/domain/game'
+import { createTask, enterDigit, startGame } from '../src/domain/game'
 import { setLanguage } from '../src/i18n'
 
 vi.mock('virtual:pwa-register/vue', () => ({
@@ -83,7 +83,10 @@ it('switches all UI text immediately and clears only app data when restarting on
   expect(wrapper.get('.brand').text()).toBe('Einstellungen')
   expect(wrapper.get('.reset-all').text()).toBe('Alles zurücksetzen')
   expect(JSON.parse(localStorage.getItem('turmrechner.preferences.v1') ?? '{}').language).toBe('de')
-  vi.stubGlobal('confirm', vi.fn(() => true))
+  vi.stubGlobal(
+    'confirm',
+    vi.fn(() => true),
+  )
   await wrapper.get('.reset-all').trigger('click')
   expect(wrapper.find('.welcome-hero').exists()).toBe(true)
   expect(localStorage.getItem('turmrechner.preferences.v1')).toBe(null)
@@ -150,4 +153,29 @@ it('renders theme samples with the selected preview and carry preferences', asyn
   await wrapper.setProps({ preferences: { ...defaultPreferences(), preview: false, carries: false } })
   expect(wrapper.findAll('.demo-prompt')).toHaveLength(0)
   for (const sample of wrapper.findAll('.arithmetic-demo')) expect(sample.get('.helpers').text()).toBe('')
+})
+
+it('points delete left for division and seed entry, and right for multiplication', async () => {
+  const game = startGame('25')
+  const wrapper = mount(GameView, {
+    props: { game, preferences: defaultPreferences(), feedback: null, mistakes: 0, canUndo: true },
+  })
+  wrappers.push(wrapper)
+  expect(wrapper.get('.delete-direction').classes()).toContain('reversed')
+  await wrapper.setProps({ game: { ...game, step: 8, task: createTask('1008000', 'div', 2) } })
+  expect(wrapper.get('.delete-direction').classes()).not.toContain('reversed')
+  await wrapper.setProps({ game: { kind: 'seed', text: '25' } })
+  expect(wrapper.get('.delete-direction').classes()).not.toContain('reversed')
+})
+
+it('counter-rotates the portrait frame for either horizontal device direction', () => {
+  const orientation = new EventTarget()
+  Object.assign(orientation, { angle: 90 })
+  vi.stubGlobal('screen', { orientation })
+  const wrapper = mount(App)
+  wrappers.push(wrapper)
+  expect(document.documentElement.style.getPropertyValue('--portrait-rotation')).toBe('-90deg')
+  Object.assign(orientation, { angle: 270 })
+  orientation.dispatchEvent(new Event('change'))
+  expect(document.documentElement.style.getPropertyValue('--portrait-rotation')).toBe('90deg')
 })

@@ -18,7 +18,8 @@ The visual design is heavily inspired by Trade Republic's clean monochrome aesth
 Open the app, choose your preferences, and enter a starting number or generate one at random.
 Use the on-screen keypad or your keyboard to solve the tower.
 
-- Easy blocks incorrect inputs. Normal corrects mistakes after each row. Hard checks the completed tower.
+- Easy blocks incorrect inputs. Normal corrects mistakes after each row and locks checked rows.
+  Hard checks the completed tower and allows deleting back into earlier rows.
 - Calculation previews, carries and remainders, and the visible timer are optional.
 - Run history stores your starting number, time, mistakes, and settings on your device.
 - Nine achievements celebrate your progress. Open the trophy to see your collection and share unlocked achievements.
@@ -26,6 +27,9 @@ Use the on-screen keypad or your keyboard to solve the tower.
 
 The app works offline after its first complete load. On iPhone, use Safari's **Add to Home Screen**
 to install it. On iPhone and iPad, onboarding includes an installation guide directly after the introduction.
+
+On mobile, the app stays in a playable portrait frame even when the device is held horizontally.
+The installed app requests a portrait lock; browsers that ignore it use a counter-rotated portrait frame.
 
 No account is needed. Game data stays in your browser, with no sync between devices.
 Clearing website data also deletes saved runs and achievements. See [app behavior and privacy](docs/app.md) for details.

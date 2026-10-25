@@ -2,7 +2,14 @@
 import { t } from '../i18n'
 import TapButton from './TapButton.vue'
 import AppIcon from './AppIcon.vue'
-defineProps<{ seedMode: boolean; haptics: boolean; canUndo?: boolean; playing?: boolean; locked?: boolean }>()
+defineProps<{
+  seedMode: boolean
+  haptics: boolean
+  canUndo?: boolean
+  playing?: boolean
+  locked?: boolean
+  division?: boolean
+}>()
 const emit = defineEmits<{ key: [key: string] }>()
 const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'back', '0', 'random']
 function label(key: string) {
@@ -27,7 +34,7 @@ function label(key: string) {
         name="delete"
         :size="20"
         class="delete-direction"
-        :class="{ reversed: !seedMode }"
+        :class="{ reversed: !seedMode && !division }"
       />
       <template v-else>{{ label(key) }}</template></TapButton
     >

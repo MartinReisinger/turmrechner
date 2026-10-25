@@ -111,3 +111,55 @@ it('rejects blocked Easy errors and wrong helper values as clean rows', () => {
     }),
   ).toBe(false)
 })
+
+it.each([false, true])('locks checked Normal rows with carries=%s, including after reload', (carries) => {
+  let round = startRound('25')
+  const events: RoundEvent[] = []
+  function dispatch(event: RoundEvent) {
+    events.push(event)
+    round = advanceRound(round, event)
+  }
+  // Reach division, checking every multiplication row first.
+  while (round.game.kind === 'playing' && round.game.step < 9) {
+    const step = round.game.step
+    // Deliberately trigger correction in the first row.
+    while (round.game.kind === 'playing' && round.game.step === step) {
+      const task = round.game.task
+      const digit = step === 0 && !round.entries.length ? 9 : expected(task)[task.phase === 'digit' ? 'digit' : 'extra']
+      dispatch({ kind: 'input', digit, mode: 'normal', carries })
+    }
+    if (round.correction) dispatch({ kind: 'continue' })
+    expect(round.undo).toHaveLength(0)
+    expect(advanceRound(round, { kind: 'undo' })).toBe(round)
+    expect(replayRound('25', events)?.undo).toHaveLength(0)
+    const empty = round.game
+    // Enter and erase several values without crossing the checked boundary.
+    for (let index = 0; index < 2; index++) {
+      if (round.game.kind !== 'playing') throw new Error('Missing active row')
+      const task = round.game.task
+      dispatch({
+        kind: 'input',
+        digit: expected(task)[task.phase === 'digit' ? 'digit' : 'extra'],
+        mode: 'normal',
+        carries,
+      })
+    }
+    dispatch({ kind: 'undo' })
+    dispatch({ kind: 'undo' })
+    expect(round.game).toEqual(empty)
+    expect(advanceRound(round, { kind: 'undo' })).toBe(round)
+  }
+})
+
+it('lets Hard undo across multiplication and division row boundaries', () => {
+  let round = startRound('25')
+  while (round.game.kind === 'playing' && round.game.step < 10) {
+    const game = round.game
+    const task = game.task
+    const next = input(round, expected(task)[task.phase === 'digit' ? 'digit' : 'extra'])
+    if (next.game.kind === 'playing' && next.game.step !== game.step) {
+      expect(advanceRound(next, { kind: 'undo' }).game).toEqual(game)
+    }
+    round = next
+  }
+})

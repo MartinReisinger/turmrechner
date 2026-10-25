@@ -134,6 +134,7 @@ const prompt = computed(() => {
       <button v-if="game.kind === 'done'" class="primary" @click="emit('reset')">{{ t('newGame') }}</button>
       <KeypadView
         :seed-mode="game.kind === 'seed'"
+        :division="operation.type === 'div'"
         :can-undo="canUndo"
         :playing="game.kind === 'playing'"
         :locked="!!correction"

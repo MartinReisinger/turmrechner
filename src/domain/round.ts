@@ -88,7 +88,7 @@ export function advanceRound(round: Round, event: RoundEvent): Round {
     reviews: [...round.reviews, review],
     correction: mode === 'normal' && rowWrong ? review : null,
     errors,
-    undo,
+    undo: mode === 'normal' ? [] : undo,
     discarded: round.discarded,
   }
 }
