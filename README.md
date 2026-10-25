@@ -29,7 +29,7 @@ The app works offline after its first complete load. On iPhone, use Safari's **A
 to install it. On iPhone and iPad, onboarding includes an installation guide directly after the introduction.
 
 The installed app requests portrait orientation and uses the native orientation lock where supported.
-Safari on iPhone does not support that lock; use iOS Portrait Orientation Lock to prevent rotation.
+In landscape viewports up to 500px high, the app counter-rotates into a portrait frame.
 
 No account is needed. Game data stays in your browser, with no sync between devices.
 Clearing website data also deletes saved runs and achievements. See [app behavior and privacy](docs/app.md) for details.

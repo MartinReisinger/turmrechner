@@ -228,3 +228,19 @@ p {
   align-items: center;
   gap: 8px;
 }
+
+@media (orientation: landscape) and (max-height: 500px) {
+  #app {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvh;
+    height: 100dvw;
+    transform-origin: top left;
+    transform: translateX(100dvw) rotate(90deg);
+    overflow: hidden;
+  }
+  .app {
+    height: 100%;
+  }
+}
