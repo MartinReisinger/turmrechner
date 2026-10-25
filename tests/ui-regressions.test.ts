@@ -167,15 +167,3 @@ it('points delete left for division and seed entry, and right for multiplication
   await wrapper.setProps({ game: { kind: 'seed', text: '25' } })
   expect(wrapper.get('.delete-direction').classes()).not.toContain('reversed')
 })
-
-it('counter-rotates the portrait frame for either horizontal device direction', () => {
-  const orientation = new EventTarget()
-  Object.assign(orientation, { angle: 90 })
-  vi.stubGlobal('screen', { orientation })
-  const wrapper = mount(App)
-  wrappers.push(wrapper)
-  expect(document.documentElement.style.getPropertyValue('--portrait-rotation')).toBe('-90deg')
-  Object.assign(orientation, { angle: 270 })
-  orientation.dispatchEvent(new Event('change'))
-  expect(document.documentElement.style.getPropertyValue('--portrait-rotation')).toBe('90deg')
-})

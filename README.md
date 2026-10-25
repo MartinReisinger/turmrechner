@@ -28,8 +28,8 @@ Use the on-screen keypad or your keyboard to solve the tower.
 The app works offline after its first complete load. On iPhone, use Safari's **Add to Home Screen**
 to install it. On iPhone and iPad, onboarding includes an installation guide directly after the introduction.
 
-On mobile, the app stays in a playable portrait frame even when the device is held horizontally.
-The installed app requests a portrait lock; browsers that ignore it use a counter-rotated portrait frame.
+The installed app requests portrait orientation and uses the native orientation lock where supported.
+Safari on iPhone does not support that lock; use iOS Portrait Orientation Lock to prevent rotation.
 
 No account is needed. Game data stays in your browser, with no sync between devices.
 Clearing website data also deletes saved runs and achievements. See [app behavior and privacy](docs/app.md) for details.

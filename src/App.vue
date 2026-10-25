@@ -24,12 +24,7 @@ import ResumeDialog from './components/ResumeDialog.vue'
 import AchievementsView from './components/AchievementsView.vue'
 import AchievementToast from './components/AchievementToast.vue'
 import { achievementsKey, useAchievements } from './composables/useAchievements'
-
-function updatePortraitRotation() {
-  const legacyAngle: unknown = Reflect.get(window, 'orientation')
-  const angle = screen.orientation?.angle ?? (typeof legacyAngle === 'number' ? legacyAngle : 90)
-  document.documentElement.style.setProperty('--portrait-rotation', `${angle === 270 || angle === -90 ? 90 : -90}deg`)
-}
+import { lockPortrait } from './platform/orientation'
 
 const preferencesKey = 'turmrechner.preferences.v1'
 const preferences = ref(parsePreferences(readStorage(preferencesKey)))
@@ -203,9 +198,9 @@ function returning() {
   )
 }
 onMounted(() => {
-  updatePortraitRotation()
-  screen.orientation?.addEventListener('change', updatePortraitRotation)
-  window.addEventListener('orientationchange', updatePortraitRotation)
+  void lockPortrait()
+  document.addEventListener('pointerdown', lockPortrait)
+  document.addEventListener('fullscreenchange', lockPortrait)
   clockTimer = setInterval(refreshClock, 250)
   document.addEventListener('visibilitychange', visibility)
   window.addEventListener('pagehide', leaving)
@@ -214,8 +209,8 @@ onMounted(() => {
   window.addEventListener('languagechange', deviceLanguageChanged)
 })
 onUnmounted(() => {
-  screen.orientation?.removeEventListener('change', updatePortraitRotation)
-  window.removeEventListener('orientationchange', updatePortraitRotation)
+  document.removeEventListener('pointerdown', lockPortrait)
+  document.removeEventListener('fullscreenchange', lockPortrait)
   leaving()
   clearInterval(clockTimer)
   document.removeEventListener('visibilitychange', visibility)
