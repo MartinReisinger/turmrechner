@@ -84,7 +84,7 @@ The privacy page links to the Impressum without displaying an address.
 For local development, set `VITE_CONTACT_EMAIL` in an ignored `.env` file. Keep personal addresses out of Git.
 No server-side user data or SQLite backup registration is needed.
 
-Connect with `ssh vps-alpha-codex`, then run:
+Connect with `ssh vps-alpha-agent`, then run:
 
 ```sh
 cd /home/deploy/turmrechner
